@@ -122,7 +122,30 @@ class World extends Component {
 
            //spacebar
            case 32:
-           clearInterval()
+           
+           var upwardProjectile = setInterval(() => {
+            this.setState({
+                attackPosition: {
+                    left: this.state.attackPosition.left,
+                    top: this.state.attackPosition.top - 2
+                }
+            }, () => {
+                if (this.state.attackPosition.top < 0) {
+                    clearInterval(upwardProjectile)
+                        this.setState({
+                            attack: null,
+                            attackDirection: 0,
+                            attackPosition: {
+                                left: 0,
+                                top: 0,
+                            }
+                        })          
+                    } //end of callback if statement 
+                    
+                } // end of callback function 
+            ) // end of sst in setInterval
+        }, 10) // end of setInt
+        
             if (this.state.currentDirection === 0){
                 clearInterval()
                     this.setState({
@@ -133,26 +156,8 @@ class World extends Component {
                             top: this.state.currentPosition.top - 65
                         }
                     })
-                    setInterval(() => {
-                        this.setState({
-                            attackPosition: {
-                                left: this.state.attackPosition.left,
-                                top: this.state.attackPosition.top - 2
-                            }
-                        }, () => {
-                            if (this.state.attackPosition.top < 0) {
-                                    this.setState({
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        }
-                                    })          
-                                } //end of callback if statement 
-                            } // end of callback function 
-                        ) // end of sst in setInterval
-                    }, 10) // end of setInt
+                    upwardProjectile
+                    
                 } // end of Ship-Up if statement
                 //Ship-Down
                 if (this.state.currentDirection === 180){
@@ -173,6 +178,7 @@ class World extends Component {
                             }
                         }, () => {
                             if (this.state.attackPosition.top < 0) {
+                                clearInterval();
                                     this.setState({
                                         attack: null,
                                         attackDirection: 0,
