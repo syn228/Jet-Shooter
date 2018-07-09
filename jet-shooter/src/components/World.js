@@ -31,7 +31,7 @@ class World extends Component {
             this.setState({
                 obstacleCoordinate: {
                     top: this.state.obstacleCoordinate.top + 3,
-                    left: this.state.obstacleCoordinate.left + 3,
+                    left: this.state.obstacleCoordinate.left + 7,
                 }
             })
        }, 100 )
@@ -260,7 +260,7 @@ class World extends Component {
                                             }
                                         })          
                                     } //end of callback if statement 
-                                    else if ( this.state.attackPosition.left <= this.state.obstacleCoordinate.top ) {
+                                    else if ( this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 5 ||  this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 4 || this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 3 || this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 2 || this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 1) {
                                         clearInterval(leftwardProjectile)
                                         this.setState({
                                             obstacleSize: this.state.obstacleSize-10,
