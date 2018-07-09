@@ -122,15 +122,16 @@ class World extends Component {
 
            //spacebar
            case 32:
-           
+           if (this.state.attack !== true) {
            var upwardProjectile = setInterval(() => {
             this.setState({
                 attackPosition: {
                     left: this.state.attackPosition.left,
-                    top: this.state.attackPosition.top - 2
+                    top: this.state.attackPosition.top - 3
                 }
             }, () => {
                 if (this.state.attackPosition.top < 0) {
+                    console.log(upwardProjectile)
                     clearInterval(upwardProjectile)
                         this.setState({
                             attack: null,
@@ -147,7 +148,6 @@ class World extends Component {
         }, 10) // end of setInt
         
             if (this.state.currentDirection === 0){
-                clearInterval()
                     this.setState({
                         attack: true,
                         attackDirection: 270,
@@ -159,39 +159,14 @@ class World extends Component {
                     upwardProjectile
                     
                 } // end of Ship-Up if statement
-                //Ship-Down
-                if (this.state.currentDirection === 180){
-                    clearInterval()
-                    this.setState({
-                        attack: true,
-                        attackDirection: 90,
-                        attackPosition: {
-                            left: this.state.currentPosition.left - 25,
-                            top: this.state.currentPosition.top - 65
-                        }
-                    })
-                    setInterval(() => {
-                        this.setState({
-                            attackPosition: {
-                                left: this.state.attackPosition.left,
-                                top: this.state.attackPosition.top + 2
-                            }
-                        }, () => {
-                            if (this.state.attackPosition.top < 0) {
-                                clearInterval();
-                                    this.setState({
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        }
-                                    })          
-                                } //end of callback if statement 
-                            } // end of callback function 
-                        ) // end of sst in setInterval
-                    }, 10) // end of setInt
-                } // end of Ship-Down if statement
+            // Shoot Down
+            
+
+
+
+            } else {
+                console.log("hitting this")
+            }
            break;
         }
       }
