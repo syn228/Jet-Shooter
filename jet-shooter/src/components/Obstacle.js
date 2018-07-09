@@ -10,7 +10,8 @@ class Obstacle extends Component {
                     style={{
                         position: 'absolute',
                         width: `${this.props.obstacleSize}%`,
-                        top: `${this.props.obstacleCoordinate.left}px`,
+                        top: `${this.props.obstacleCoordinate.top}px`,
+                        left: `${this.props.obstacleCoordinate.left}px`
                     }}
                 />
             </div>

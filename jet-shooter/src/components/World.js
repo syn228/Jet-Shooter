@@ -19,10 +19,8 @@ class World extends Component {
         },
         obstacleSize: 20,
         obstacleCoordinate: {
-            top: null,
-            left: 200,
-            right: null,
-            bottom: null
+            top: 200,
+            left: 0
         }
     }
    
@@ -30,7 +28,12 @@ class World extends Component {
     componentDidMount() {
         window.addEventListener("keydown", this.handleControls)
        var obstacleLocation = setInterval(() => {
-           
+            this.setState({
+                obstacleCoordinate: {
+                    top: this.state.obstacleCoordinate.top + 3,
+                    left: this.state.obstacleCoordinate.left + 3,
+                }
+            })
        }, 100 )
     }
  
@@ -257,7 +260,7 @@ class World extends Component {
                                             }
                                         })          
                                     } //end of callback if statement 
-                                    else if ( this.state.attackPosition.left <= this.state.obstacleCoordinate.left ) {
+                                    else if ( this.state.attackPosition.left <= this.state.obstacleCoordinate.top ) {
                                         clearInterval(leftwardProjectile)
                                         this.setState({
                                             obstacleSize: this.state.obstacleSize-10,
