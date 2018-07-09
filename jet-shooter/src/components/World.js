@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Ship from './Ship'
 import keydown from 'react-keydown'
+import Obstacle from './Obstacle'
 
 class World extends Component {
        
@@ -15,26 +16,25 @@ class World extends Component {
         attackPosition: {
             left: null,
             top: null,
+        },
+        obstacleSize: 20,
+        obstacleCoordinate: {
+            top: null,
+            left: 200,
+            right: null,
+            bottom: null
         }
     }
    
 
     componentDidMount() {
         window.addEventListener("keydown", this.handleControls)
-        // window.innerWidth = 1700
-        // window.innerHeight = 740
+       var obstacleLocation = setInterval(() => {
+           
+       }, 100 )
     }
  
-    // componentDidUpdate(prevProps, prevState) {
-    //    clearInterval()
-    //     if (this.state.currentPosition.left === 0){
-    //         this.setState({
-    //             top: this.state.currentPosition.top,
-    //             left: 740
-    //         })
-    //     }
-    // }
-        
+    
 
     handleControls = (event) => {
         
@@ -257,6 +257,18 @@ class World extends Component {
                                             }
                                         })          
                                     } //end of callback if statement 
+                                    else if ( this.state.attackPosition.left <= this.state.obstacleCoordinate.left ) {
+                                        clearInterval(leftwardProjectile)
+                                        this.setState({
+                                            obstacleSize: this.state.obstacleSize-10,
+                                            attack: null,
+                                            attackDirection: 0,
+                                            attackPosition: {
+                                                left: 0,
+                                                top: 0,
+                                            }
+                                        })
+                                    }
                                     
                                 } // end of callback function 
                             ) // end of sst in setInterval
@@ -287,7 +299,7 @@ class World extends Component {
         return (
             <div>
             <Ship attackDirection={this.state.attackDirection} attackPosition={this.state.attackPosition} currentPosition={this.state.currentPosition} currentDirection={this.state.currentDirection} handleControls={this.handleControls} attack={this.state.attack}/>
-            <img src="https://space-facts.com/wp-content/uploads/mars-transparent.png" style={{width: "20%"}}/>
+            <Obstacle obstacleCoordinate={this.state.obstacleCoordinate} obstacleSize={this.state.obstacleSize}/>
             </div>
         );
     }
