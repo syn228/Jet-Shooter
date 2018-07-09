@@ -123,31 +123,32 @@ class World extends Component {
            //spacebar
            case 32:
            if (this.state.attack !== true) {
-           var upwardProjectile = setInterval(() => {
-            this.setState({
-                attackPosition: {
-                    left: this.state.attackPosition.left,
-                    top: this.state.attackPosition.top - 3
-                }
-            }, () => {
-                if (this.state.attackPosition.top < 0) {
-                    console.log(upwardProjectile)
-                    clearInterval(upwardProjectile)
-                        this.setState({
-                            attack: null,
-                            attackDirection: 0,
-                            attackPosition: {
-                                left: 0,
-                                top: 0,
-                            }
-                        })          
-                    } //end of callback if statement 
-                    
-                } // end of callback function 
-            ) // end of sst in setInterval
-        }, 10) // end of setInt
+         
         
             if (this.state.currentDirection === 0){
+                var upwardProjectile = setInterval(() => {
+                    this.setState({
+                        attackPosition: {
+                            left: this.state.attackPosition.left,
+                            top: this.state.attackPosition.top - 3
+                        }
+                    }, () => {
+                        if (this.state.attackPosition.top < 0) {
+                            console.log(upwardProjectile)
+                            clearInterval(upwardProjectile)
+                                this.setState({
+                                    attack: null,
+                                    attackDirection: 0,
+                                    attackPosition: {
+                                        left: 0,
+                                        top: 0,
+                                    }
+                                })          
+                            } //end of callback if statement 
+                            
+                        } // end of callback function 
+                    ) // end of sst in setInterval
+                }, 10) // end of setInt
                     this.setState({
                         attack: true,
                         attackDirection: 270,
@@ -159,8 +160,45 @@ class World extends Component {
                     upwardProjectile
                     
                 } // end of Ship-Up if statement
+            
             // Shoot Down
             
+            
+                if (this.state.currentDirection === 180){
+                    var downwardProjectile = setInterval(() => {
+                        this.setState({
+                            attackPosition: {
+                                left: this.state.attackPosition.left,
+                                top: this.state.attackPosition.top + 3
+                            }
+                        }, () => {
+                            if (this.state.attackPosition.top > 740) {
+                                clearInterval(downwardProjectile)
+                                    this.setState({
+                                        attack: null,
+                                        attackDirection: 0,
+                                        attackPosition: {
+                                            left: 0,
+                                            top: 0,
+                                        }
+                                    })          
+                                } //end of callback if statement 
+                                
+                            } // end of callback function 
+                        ) // end of sst in setInterval
+                    }, 10) // end of setInt
+                        this.setState({
+                            attack: true,
+                            attackDirection: 90,
+                            attackPosition: {
+                                left: this.state.currentPosition.left - 25,
+                                top: this.state.currentPosition.top + 65
+                            }
+                        })
+                        downwardProjectile
+                        
+                    } // end of Ship-Down if statement
+
 
 
 
