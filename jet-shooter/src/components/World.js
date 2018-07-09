@@ -199,6 +199,79 @@ class World extends Component {
                         
                     } // end of Ship-Down if statement
 
+                    // This is the rightward Projectile
+
+                    if (this.state.currentDirection === 90){
+                        var rightwardProjectile = setInterval(() => {
+                            this.setState({
+                                attackPosition: {
+                                    left: this.state.attackPosition.left + 3,
+                                    top: this.state.attackPosition.top
+                                }
+                            }, () => {
+                                if (this.state.attackPosition.left > 1700) {
+                                    clearInterval(rightwardProjectile)
+                                        this.setState({
+                                            attack: null,
+                                            attackDirection: 0,
+                                            attackPosition: {
+                                                left: 0,
+                                                top: 0,
+                                            }
+                                        })          
+                                    } //end of callback if statement 
+                                    
+                                } // end of callback function 
+                            ) // end of sst in setInterval
+                        }, 10) // end of setInt
+                            this.setState({
+                                attack: true,
+                                attackDirection: 360,
+                                attackPosition: {
+                                    left: this.state.currentPosition.left + 30,
+                                    top: this.state.currentPosition.top + 3
+                                }
+                            })
+                            rightwardProjectile
+                            
+                        } // end of Ship-Right if statement
+
+                    // This is the leftward Projectile
+
+                    if (this.state.currentDirection === 270){
+                        var leftwardProjectile = setInterval(() => {
+                            this.setState({
+                                attackPosition: {
+                                    left: this.state.attackPosition.left - 3,
+                                    top: this.state.attackPosition.top
+                                }
+                            }, () => {
+                                if (this.state.attackPosition.left < 0) {
+                                    clearInterval(leftwardProjectile)
+                                        this.setState({
+                                            attack: null,
+                                            attackDirection: 0,
+                                            attackPosition: {
+                                                left: 0,
+                                                top: 0,
+                                            }
+                                        })          
+                                    } //end of callback if statement 
+                                    
+                                } // end of callback function 
+                            ) // end of sst in setInterval
+                        }, 10) // end of setInt
+                            this.setState({
+                                attack: true,
+                                attackDirection: 180,
+                                attackPosition: {
+                                    left: this.state.currentPosition.left - 90,
+                                    top: this.state.currentPosition.top + 3
+                                }
+                            })
+                            leftwardProjectile
+                            
+                        } // end of Ship-Left if statement
 
 
 
