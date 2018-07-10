@@ -6,12 +6,14 @@ import Obstacle from './Obstacle'
 class World extends Component {
        
     state = {
+        shipSpeed: 1,
         currentDirection: 0,
         currentPosition: {
             left: window.innerWidth/2,
             top: window.innerHeight/2
         },
         attack: null,
+        attackTravelSpeed: 3,
         attackDirection: 0,
         attackPosition: {
             left: null,
@@ -40,7 +42,7 @@ class World extends Component {
     
 
     handleControls = (event) => {
-        
+
 
         switch (event.keyCode) {
           case 37:
@@ -58,16 +60,16 @@ class World extends Component {
            //up (w)
            case 87:
           setInterval(() => {
-            if (this.state.currentPosition.top === 0)  {
+            if (this.state.currentPosition.top < 0)  {
                 this.setState({
                     currentPosition: {
-                        top: 740,
+                        top: window.innerHeight,
                         left: this.state.currentPosition.left
                     }
                 });
             }
             else{
-            this.setState({currentPosition: {top: this.state.currentPosition.top - 1, left: this.state.currentPosition.left } })
+            this.setState({currentPosition: {top: this.state.currentPosition.top - this.state.shipSpeed, left: this.state.currentPosition.left } })
             }
             }, 100)
            break;
@@ -79,12 +81,12 @@ class World extends Component {
                 this.setState({
                     currentPosition: {
                         top: this.state.currentPosition.top,
-                        left: 1699
+                        left: window.innerWidth
                     }
                 });
             }
             else {
-                this.setState({currentPosition: {top: this.state.currentPosition.top, left: this.state.currentPosition.left - 1 } })
+                this.setState({currentPosition: {top: this.state.currentPosition.top, left: this.state.currentPosition.left - this.state.shipSpeed } })
             }
             }, 100)
            break;
@@ -92,7 +94,7 @@ class World extends Component {
            //right (d)
            case 68:
           setInterval(() => {
-            if (this.state.currentPosition.left === 1700){
+            if (this.state.currentPosition.left > window.innerWidth){
                 this.setState({
                     currentPosition: {
                         top: this.state.currentPosition.top,
@@ -101,7 +103,7 @@ class World extends Component {
                 });
             }
             else {
-            this.setState({currentPosition: {top: this.state.currentPosition.top, left: this.state.currentPosition.left + 1 } })
+            this.setState({currentPosition: {top: this.state.currentPosition.top, left: this.state.currentPosition.left + this.state.shipSpeed } })
             }
             }, 100)
            break;
@@ -109,7 +111,7 @@ class World extends Component {
            //down (s)
            case 83:
            setInterval(() => {
-            if (this.state.currentPosition.top === 741)  {
+            if (this.state.currentPosition.top > window.innerHeight)  {
                 this.setState({
                     currentPosition: {
                         top: 1,
@@ -118,7 +120,7 @@ class World extends Component {
                 });
             }
             else{
-            this.setState({currentPosition: {top: this.state.currentPosition.top + 1, left: this.state.currentPosition.left } })
+            this.setState({currentPosition: {top: this.state.currentPosition.top + this.state.shipSpeed, left: this.state.currentPosition.left } })
             }
             }, 100)
            break;
@@ -133,7 +135,7 @@ class World extends Component {
                     this.setState({
                         attackPosition: {
                             left: this.state.attackPosition.left,
-                            top: this.state.attackPosition.top - 3
+                            top: this.state.attackPosition.top - this.state.attackTravelSpeed
                         }
                     }, () => {
                         if (this.state.attackPosition.top < 0) {
@@ -172,10 +174,10 @@ class World extends Component {
                         this.setState({
                             attackPosition: {
                                 left: this.state.attackPosition.left,
-                                top: this.state.attackPosition.top + 3
+                                top: this.state.attackPosition.top + this.state.attackTravelSpeed
                             }
                         }, () => {
-                            if (this.state.attackPosition.top > 740) {
+                            if (this.state.attackPosition.top > window.innerHeight) {
                                 clearInterval(downwardProjectile)
                                     this.setState({
                                         attack: null,
@@ -208,11 +210,11 @@ class World extends Component {
                         var rightwardProjectile = setInterval(() => {
                             this.setState({
                                 attackPosition: {
-                                    left: this.state.attackPosition.left + 3,
+                                    left: this.state.attackPosition.left + this.state.attackTravelSpeed,
                                     top: this.state.attackPosition.top
                                 }
                             }, () => {
-                                if (this.state.attackPosition.left > 1700) {
+                                if (this.state.attackPosition.left > window.innerWidth) {
                                     clearInterval(rightwardProjectile)
                                         this.setState({
                                             attack: null,
@@ -245,7 +247,7 @@ class World extends Component {
                         var leftwardProjectile = setInterval(() => {
                             this.setState({
                                 attackPosition: {
-                                    left: this.state.attackPosition.left - 3,
+                                    left: this.state.attackPosition.left - this.state.attackTravelSpeed,
                                     top: this.state.attackPosition.top
                                 }
                             }, () => {
