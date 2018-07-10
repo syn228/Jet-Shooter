@@ -21,8 +21,8 @@ class World extends Component {
         },
         obstacleSize: 20,
         obstacleCoordinate: {
-            top: 200,
-            left: 0
+            top: 0,
+            left: 200,
         }
     }
    
@@ -32,8 +32,8 @@ class World extends Component {
        var obstacleLocation = setInterval(() => {
             this.setState({
                 obstacleCoordinate: {
-                    top: this.state.obstacleCoordinate.top + 3,
-                    left: this.state.obstacleCoordinate.left + 7,
+                    top: this.state.obstacleCoordinate.top + 1,
+                    left: this.state.obstacleCoordinate.left + 1,
                 }
             })
        }, 100 )
@@ -262,7 +262,15 @@ class World extends Component {
                                             }
                                         })          
                                     } //end of callback if statement 
-                                    else if ( this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 5 ||  this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 4 || this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 3 || this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 2 || this.state.attackPosition.left == this.state.obstacleCoordinate.left+ 1) {
+                                    else if ((this.state.attackPosition.left == this.state.obstacleCoordinate.left + 250
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 251
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 251
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 252
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 252
+                                        ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top 
+                                            && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 340)
+                                    )
+                                    {
                                         clearInterval(leftwardProjectile)
                                         this.setState({
                                             obstacleSize: this.state.obstacleSize-10,
