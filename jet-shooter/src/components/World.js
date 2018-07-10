@@ -22,7 +22,7 @@ class World extends Component {
         obstacleAppearance: true,
         obstacleSize: 20,
         obstacleCoordinate: {
-            top: 350,
+            top: 0,
             left: 500,
         }
     }
@@ -67,10 +67,31 @@ class World extends Component {
                         top: window.innerHeight,
                         left: this.state.currentPosition.left
                     }
-                });
+                })
             }
-            else{
-            this.setState({currentPosition: {top: this.state.currentPosition.top - this.state.shipSpeed, left: this.state.currentPosition.left } })
+            else {
+                this.setState({
+                    currentPosition: {
+                     top: this.state.currentPosition.top - this.state.shipSpeed, 
+                     left: this.state.currentPosition.left 
+                    } 
+                }, () => {
+                    if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left 
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                })
             }
             }, 100)
            break;
@@ -87,7 +108,27 @@ class World extends Component {
                 });
             }
             else {
-                this.setState({currentPosition: {top: this.state.currentPosition.top, left: this.state.currentPosition.left - this.state.shipSpeed } })
+                this.setState({
+                    currentPosition: {
+                        top: this.state.currentPosition.top, 
+                        left: this.state.currentPosition.left - this.state.shipSpeed } 
+                }, () => {
+                    if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left 
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                })
             }
             }, 100)
            break;
@@ -104,7 +145,27 @@ class World extends Component {
                 });
             }
             else {
-            this.setState({currentPosition: {top: this.state.currentPosition.top, left: this.state.currentPosition.left + this.state.shipSpeed } })
+            this.setState({
+                currentPosition: {
+                    top: this.state.currentPosition.top, 
+                    left: this.state.currentPosition.left + this.state.shipSpeed } 
+                }, () => {
+                    if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left 
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                })
             }
             }, 100)
            break;
@@ -121,7 +182,29 @@ class World extends Component {
                 });
             }
             else{
-            this.setState({currentPosition: {top: this.state.currentPosition.top + this.state.shipSpeed, left: this.state.currentPosition.left } })
+            this.setState({
+                currentPosition: {
+                    top: this.state.currentPosition.top + this.state.shipSpeed, 
+                    left: this.state.currentPosition.left } 
+                }, () => {
+                    if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                                                            &&
+                        (this.state.obstacleSize === 20)
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                })
             }
             }, 100)
            break;
