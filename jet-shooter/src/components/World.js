@@ -74,8 +74,8 @@ class World extends Component {
            //up (w)
            case 87:
            while (downwardAccelration.length !== 0) {
-            var thing = downwardAccelration.pop();
-            clearInterval(thing)
+            var individualInterval = downwardAccelration.pop();
+            clearInterval(individualInterval)
         }
             upwardAccelration.push(setInterval(() => {
             if (this.state.currentPosition.top < 0)  {
@@ -133,8 +133,8 @@ class World extends Component {
            case 65:
      
             while (rightwardAccelration.length !== 0) {
-                var thing = rightwardAccelration.pop();
-                clearInterval(thing)
+                var individualInterval = rightwardAccelration.pop();
+                clearInterval(individualInterval)
             }
             
          
@@ -188,8 +188,8 @@ class World extends Component {
            //right (d)
            case 68:
            while (leftwardAccelration.length !== 0) {
-            var thing = leftwardAccelration.pop();
-            clearInterval(thing)
+            var individualInterval = leftwardAccelration.pop();
+            clearInterval(individualInterval)
             }
            
             rightwardAccelration.push(setInterval(() => {
@@ -243,8 +243,8 @@ class World extends Component {
            //down (s)
            case 83:
            while (upwardAccelration.length !== 0) {
-            var thing = upwardAccelration.pop();
-            clearInterval(thing)
+            var individualInterval = upwardAccelration.pop();
+            clearInterval(individualInterval)
             }
             downwardAccelration.push(setInterval(() => {
             if (this.state.currentPosition.top > window.innerHeight)  {
