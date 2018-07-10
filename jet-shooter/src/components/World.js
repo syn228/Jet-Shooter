@@ -23,8 +23,9 @@ class World extends Component {
         obstacleSize: 20,
         obstacleCoordinate: {
             top: 0,
-            left: 500,
-        }
+            left: 530,
+        },
+        gameOver: false
     }
    
 
@@ -81,7 +82,9 @@ class World extends Component {
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
                                                             && 
                         (this.state.currentPosition.left > this.state.obstacleCoordinate.left 
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230) 
+                                                            && 
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance == true)
                         )
                         { 
                         this.setState({
@@ -91,6 +94,24 @@ class World extends Component {
                             }
                         })
                     }
+                    else if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                                                            &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                    else console.log(("nope"));
                 })
             }
             }, 100)
@@ -117,8 +138,10 @@ class World extends Component {
                         (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
                                                             && 
-                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
                             && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                                                            &&
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
                         { 
                         this.setState({
@@ -128,6 +151,25 @@ class World extends Component {
                             }
                         })
                     }
+                    else if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                                                            &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                    else console.log(("nope"));
+                     
                 })
             }
             }, 100)
@@ -154,8 +196,10 @@ class World extends Component {
                         (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
                                                             && 
-                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
                             && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                                                            &&
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
                         { 
                         this.setState({
@@ -165,6 +209,25 @@ class World extends Component {
                             }
                         })
                     }
+                    else if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                                                            &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                    else console.log(("nope"));
+                     
                 })
             }
             }, 100)
@@ -194,7 +257,7 @@ class World extends Component {
                         (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
                             && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
                                                             &&
-                        (this.state.obstacleSize === 20)
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
                         { 
                         this.setState({
@@ -204,6 +267,25 @@ class World extends Component {
                             }
                         })
                     }
+                    else if (
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                            && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                                                            &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
+                        )
+                        { 
+                        this.setState({
+                            obstacleCoordinate: {
+                                top: 0,
+                                left: 0,
+                            }
+                        })
+                    }
+                    else console.log(("nope"));
+                     
                 })
             }
             }, 100)
