@@ -4,18 +4,20 @@ import keydown from 'react-keydown'
 import Obstacle from './Obstacle'
 import explosion from '../assets/explosion.gif'
 
+var moveUp2 = null
 class World extends Component {
-       
+    
     state = {
         shipSrc: "http://www.pngmart.com/files/3/Spaceship-PNG-Image.png", 
-        shipSpeed: 1,
+        shipSpeed: 3,
         currentDirection: 0,
         currentPosition: {
+            test: false,
             left: window.innerWidth/2,
             top: window.innerHeight/2
         },
         attack: null,
-        attackTravelSpeed: 3,
+        attackTravelSpeed: 7,
         attackDirection: 0,
         attackPosition: {
             left: null,
@@ -25,7 +27,7 @@ class World extends Component {
         obstacleSize: 20,
         obstacleCoordinate: {
             top: 0,
-            left: 530,
+            left: 0,
         },
         gameOverCounter: 0
     }
@@ -48,7 +50,7 @@ class World extends Component {
     
 
     handleControls = (event) => {
-
+        
 
         switch (event.keyCode) {
           case 37:
@@ -65,10 +67,11 @@ class World extends Component {
            break;
            //up (w)
            case 87:
-          setInterval(() => {
+            moveUp2 = setInterval(() => {
             if (this.state.currentPosition.top < 0)  {
                 this.setState({
                     currentPosition: {
+                        test: true,
                         top: window.innerHeight,
                         left: this.state.currentPosition.left
                     }
@@ -109,10 +112,21 @@ class World extends Component {
                 })
             }
             }, 100)
+
+
+
+
+           
            break;
 
            //left (a)
            case 65:
+        
+           moveUp2
+           debugger;
+           while (moveUp2 !== 0) {
+            clearInterval(moveUp2)
+           }
           setInterval(() => {
             if (this.state.currentPosition.left === 1){
                 this.setState({
@@ -210,7 +224,9 @@ class World extends Component {
 
            //down (s)
            case 83:
-           setInterval(() => {
+           
+
+            setInterval(() => {
             if (this.state.currentPosition.top > window.innerHeight)  {
                 this.setState({
                     currentPosition: {
@@ -620,6 +636,7 @@ class World extends Component {
             }
            break;
         }
+        
       }
     
       gameOver = () => {
