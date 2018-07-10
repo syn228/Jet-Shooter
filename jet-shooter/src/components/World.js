@@ -22,8 +22,8 @@ class World extends Component {
         obstacleAppearance: true,
         obstacleSize: 20,
         obstacleCoordinate: {
-            top: 0,
-            left: 200,
+            top: 350,
+            left: 500,
         }
     }
    
@@ -151,7 +151,58 @@ class World extends Component {
                                     }
                                 })          
                             } //end of callback if statement 
-                            
+                            else if (
+                                (this.state.attackPosition.top == this.state.obstacleCoordinate.top + 200
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 201
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 201
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 202
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 202
+                                ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left 
+                                    && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
+                            ) //entire else if (obs-size == 20)
+                            {
+                                clearInterval(rightwardProjectile)
+                                this.setState({
+                                    obstacleSize: this.state.obstacleSize-10,
+                                    attack: null,
+                                    attackDirection: 0,
+                                    attackPosition: {
+                                        left: 0,
+                                        top: 0,
+                                    }
+                                })
+                            }
+                            else if (
+                                (this.state.attackPosition.top == this.state.obstacleCoordinate.top + 100
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 101
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 101
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 102
+                                || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 102
+                                ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left -20
+                                    && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 100) && (this.state.obstacleSize == 10)
+                                ) //entire else if (obs-size == 10)
+                                    {
+                                    clearInterval(rightwardProjectile)
+                                     this.setState({
+                                        obstacleSize: this.state.obstacleSize-10,
+                                        attack: null,
+                                        attackDirection: 0,
+                                        attackPosition: {
+                                            left: 0,
+                                            top: 0,
+                                        }
+                                    })
+                               }
+                                else if (this.state.obstacleSize !== 20 && this.state.obstacleSize !== 10){
+
+                                    this.setState({
+                                        obstacleAppearance: false,
+                                        obstacleCoordinate:{
+                                            top: null,
+                                            left: null
+                                        }
+                                    })
+                                }// end of obstaclesize== 0 if statement
                         } // end of callback function 
                     ) // end of sst in setInterval
                 }, 10) // end of setInt
@@ -189,7 +240,58 @@ class World extends Component {
                                         }
                                     })          
                                 } //end of callback if statement 
-                                
+                                else if (
+                                    (this.state.attackPosition.top == this.state.obstacleCoordinate.top 
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 1
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 1
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 2
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 2
+                                    ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left 
+                                        && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
+                                ) //entire else if (obs-size == 20)
+                                {
+                                    clearInterval(rightwardProjectile)
+                                    this.setState({
+                                        obstacleSize: this.state.obstacleSize-10,
+                                        attack: null,
+                                        attackDirection: 0,
+                                        attackPosition: {
+                                            left: 0,
+                                            top: 0,
+                                        }
+                                    })
+                                }
+                                else if (
+                                    (this.state.attackPosition.top == this.state.obstacleCoordinate.top 
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 1
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 1
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 2
+                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 2
+                                    ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left -20
+                                        && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 100) && (this.state.obstacleSize == 10)
+                                    ) //entire else if (obs-size == 10)
+                                        {
+                                        clearInterval(rightwardProjectile)
+                                         this.setState({
+                                            obstacleSize: this.state.obstacleSize-10,
+                                            attack: null,
+                                            attackDirection: 0,
+                                            attackPosition: {
+                                                left: 0,
+                                                top: 0,
+                                            }
+                                        })
+                                   }
+                                    else if (this.state.obstacleSize !== 20 && this.state.obstacleSize !== 10){
+    
+                                        this.setState({
+                                            obstacleAppearance: false,
+                                            obstacleCoordinate:{
+                                                top: null,
+                                                left: null
+                                            }
+                                        })
+                                    }// end of obstaclesize== 0 if statement
                             } // end of callback function 
                         ) // end of sst in setInterval
                     }, 10) // end of setInt
@@ -226,7 +328,58 @@ class World extends Component {
                                             }
                                         })          
                                     } //end of callback if statement 
-                                    
+                                    else if (
+                                        (this.state.attackPosition.left == this.state.obstacleCoordinate.left
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 1
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 1
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 2
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 2
+                                        ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top 
+                                            && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 340) && (this.state.obstacleSize == 20)
+                                    ) //entire else if (obs-size == 20)
+                                    {
+                                        clearInterval(rightwardProjectile)
+                                        this.setState({
+                                            obstacleSize: this.state.obstacleSize-10,
+                                            attack: null,
+                                            attackDirection: 0,
+                                            attackPosition: {
+                                                left: 0,
+                                                top: 0,
+                                            }
+                                        })
+                                    }
+                                    else if (
+                                        (this.state.attackPosition.left == this.state.obstacleCoordinate.left 
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 1
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 1
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 2
+                                        || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 2
+                                        ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top 
+                                            && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 100) && (this.state.obstacleSize == 10)
+                                        ) //entire else if (obs-size == 10)
+                                            {
+                                            clearInterval(rightwardProjectile)
+                                             this.setState({
+                                                obstacleSize: this.state.obstacleSize-10,
+                                                attack: null,
+                                                attackDirection: 0,
+                                                attackPosition: {
+                                                    left: 0,
+                                                    top: 0,
+                                                }
+                                            })
+                                       }
+                                        else if (this.state.obstacleSize !== 20 && this.state.obstacleSize !== 10){
+
+                                            this.setState({
+                                                obstacleAppearance: false,
+                                                obstacleCoordinate:{
+                                                    top: null,
+                                                    left: null
+                                                }
+                                            })
+                                        }// end of obstaclesize== 0 if statement
                                 } // end of callback function 
                             ) // end of sst in setInterval
                         }, 10) // end of setInt
@@ -306,6 +459,7 @@ class World extends Component {
                                             })
                                        }
                                         else if (this.state.obstacleSize !== 20 && this.state.obstacleSize !== 10){
+
                                             this.setState({
                                                 obstacleAppearance: false,
                                                 obstacleCoordinate:{
