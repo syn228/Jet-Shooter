@@ -4,7 +4,11 @@ import keydown from 'react-keydown'
 import Obstacle from './Obstacle'
 import explosion from '../assets/explosion.gif'
 
-var moveUp2 = null
+var upwardAccelration = []
+var downwardAccelration = []
+var leftwardAccelration = []
+var rightwardAccelration = []
+
 class World extends Component {
     
     state = {
@@ -47,6 +51,7 @@ class World extends Component {
        }, 100 )
     }
  
+
     
 
     handleControls = (event) => {
@@ -65,9 +70,14 @@ class World extends Component {
            case 40:
            this.setState({currentDirection: 180})
            break;
+
            //up (w)
            case 87:
-            moveUp2 = setInterval(() => {
+           while (downwardAccelration.length !== 0) {
+            var thing = downwardAccelration.pop();
+            clearInterval(thing)
+        }
+            upwardAccelration.push(setInterval(() => {
             if (this.state.currentPosition.top < 0)  {
                 this.setState({
                     currentPosition: {
@@ -78,12 +88,15 @@ class World extends Component {
                 })
             }
             else {
+                
+                
                 this.setState({
                     currentPosition: {
                      top: this.state.currentPosition.top - this.state.shipSpeed, 
                      left: this.state.currentPosition.left 
                     } 
                 }, () => {
+                    
                     if (
                         (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
@@ -112,22 +125,20 @@ class World extends Component {
                 })
             }
             }, 100)
+          ) // end of push
 
-
-
-
-           
            break;
 
            //left (a)
            case 65:
-        
-           moveUp2
-           debugger;
-           while (moveUp2 !== 0) {
-            clearInterval(moveUp2)
-           }
-          setInterval(() => {
+     
+            while (rightwardAccelration.length !== 0) {
+                var thing = rightwardAccelration.pop();
+                clearInterval(thing)
+            }
+            
+         
+          leftwardAccelration.push(setInterval(() => {
             if (this.state.currentPosition.left === 1){
                 this.setState({
                     currentPosition: {
@@ -171,11 +182,17 @@ class World extends Component {
                 })
             }
             }, 100)
+        )// end of push
            break;
 
            //right (d)
            case 68:
-          setInterval(() => {
+           while (leftwardAccelration.length !== 0) {
+            var thing = leftwardAccelration.pop();
+            clearInterval(thing)
+            }
+           
+            rightwardAccelration.push(setInterval(() => {
             if (this.state.currentPosition.left > window.innerWidth){
                 this.setState({
                     currentPosition: {
@@ -220,13 +237,16 @@ class World extends Component {
                 })
             }
             }, 100)
+        ) //end of push
            break;
 
            //down (s)
            case 83:
-           
-
-            setInterval(() => {
+           while (upwardAccelration.length !== 0) {
+            var thing = upwardAccelration.pop();
+            clearInterval(thing)
+            }
+            downwardAccelration.push(setInterval(() => {
             if (this.state.currentPosition.top > window.innerHeight)  {
                 this.setState({
                     currentPosition: {
@@ -270,6 +290,7 @@ class World extends Component {
                 })
             }
             }, 100)
+        ) // end of push
            break;
 
            //spacebar
