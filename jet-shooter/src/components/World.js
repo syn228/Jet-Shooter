@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Ship from './Ship'
 import keydown from 'react-keydown'
 import Obstacle from './Obstacle'
+import explosion from '../assets/explosion.gif'
 
 class World extends Component {
        
     state = {
+        shipSrc: "http://www.pngmart.com/files/3/Spaceship-PNG-Image.png", 
         shipSpeed: 1,
         currentDirection: 0,
         currentPosition: {
@@ -25,13 +27,15 @@ class World extends Component {
             top: 0,
             left: 530,
         },
-        gameOver: false
+        gameOverCounter: 0
     }
+  
    
 
     componentDidMount() {
         window.addEventListener("keydown", this.handleControls)
-       var obstacleLocation = setInterval(() => {
+
+        var obstacleLocation = setInterval(() => {
             this.setState({
                 obstacleCoordinate: {
                     top: this.state.obstacleCoordinate.top + 1,
@@ -87,12 +91,7 @@ class World extends Component {
                         (this.state.obstacleSize === 20 && this.state.obstacleAppearance == true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                         this.gameOver();   
                     }
                     else if (
                         (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -104,12 +103,7 @@ class World extends Component {
                         (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                            this.gameOver();
                     }
                     else console.log(("nope"));
                 })
@@ -144,12 +138,7 @@ class World extends Component {
                         (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                            this.gameOver();
                     }
                     else if (
                         (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -161,12 +150,7 @@ class World extends Component {
                         (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                            this.gameOver();
                     }
                     else console.log(("nope"));
                      
@@ -202,12 +186,8 @@ class World extends Component {
                         (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                            this.gameOver();
+
                     }
                     else if (
                         (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -219,12 +199,7 @@ class World extends Component {
                         (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                            this.gameOver();
                     }
                     else console.log(("nope"));
                      
@@ -260,12 +235,7 @@ class World extends Component {
                         (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                            this.gameOver();
                     }
                     else if (
                         (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -277,12 +247,7 @@ class World extends Component {
                         (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
                         )
                         { 
-                        this.setState({
-                            obstacleCoordinate: {
-                                top: 0,
-                                left: 0,
-                            }
-                        })
+                            this.gameOver();
                     }
                     else console.log(("nope"));
                      
@@ -657,11 +622,26 @@ class World extends Component {
         }
       }
     
-
+      gameOver = () => {
+          this.setState ({
+              shipSrc: explosion,
+              gameOverCounter: this.state.gameOverCounter + 1,
+              attack: true,
+              attackPosition: {
+                left: -100,
+                top: -100,
+            },
+          })
+          if (this.state.gameOverCounter === 1){
+              alert("GAME OVER!")
+          }
+      }
+    
     render() {
+
         return (
             <div>
-            <Ship attackDirection={this.state.attackDirection} attackPosition={this.state.attackPosition} currentPosition={this.state.currentPosition} currentDirection={this.state.currentDirection} handleControls={this.handleControls} attack={this.state.attack}/>
+            <Ship shipSrc={this.state.shipSrc} attackDirection={this.state.attackDirection} attackPosition={this.state.attackPosition} currentPosition={this.state.currentPosition} currentDirection={this.state.currentDirection} handleControls={this.handleControls} attack={this.state.attack}/>
             {this.state.obstacleAppearance == true ? <Obstacle obstacleCoordinate={this.state.obstacleCoordinate} obstacleSize={this.state.obstacleSize}/> : null}
             </div>
         );

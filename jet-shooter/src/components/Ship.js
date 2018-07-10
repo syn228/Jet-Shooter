@@ -6,7 +6,7 @@ class Ship extends Component {
     render() {
         return (
             <div>
-                <img src="http://www.pngmart.com/files/3/Spaceship-PNG-Image.png" 
+                <img src={this.props.shipSrc}
                 style={{
                     position:"absolute", 
                     left: `${this.props.currentPosition.left}px`, 
