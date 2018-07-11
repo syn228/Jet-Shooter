@@ -3,6 +3,7 @@ import Ship from './Ship'
 import keydown from 'react-keydown'
 import Obstacle from './Obstacle'
 import Obstacle2 from './Obstacle2'
+import Score from './Score'
 import explosion from '../assets/explosion.gif'
 
 // Acceleration for Ship (Accessed inside handleControls)
@@ -45,7 +46,8 @@ class World extends Component {
             left: 800,
         },
         obstacleSpeed: 1,
-        gameOverCounter: 0
+        gameOverCounter: 0,
+        gameScore: 0
     }
 
     componentDidMount() {
@@ -63,30 +65,32 @@ class World extends Component {
                     }
                 })
         }, 100 )
-        if (this.state.obstacleCounter !== 0){
-            this.setState({
-                obstacleAppearance: true,
-                obstacleCounter: 0,
-                obstacleSize: 20,
-                obstacleCoordinate: {
-                    top: 0,
-                    left: 0
-                }
-            })
-        }
     }
 
     reRenderObstacle = () => {
-        return reRenderObj = (setTimeout( () => {
-            this.setState({
-                obstacleAppearance: true,
-                obstacleSize: 20,
-                obstacleCoordinate: {
-                    top: 0,
-                    left: 0
-                }
-            })
-        }, 2000))
+        let randomX = Math.random() * window.innerWidth;
+        let randomY = Math.random() * window.innerHeight/2;
+        if ((randomX < this.state.currentPosition.left + 50 
+            && randomX > this.state.currentPosition.left - 50)
+            && (randomY < this.state.currentPosition.top + 50 
+            && randomY > this.state.currentPosition.top - 50)
+            ){
+                randomX = Math.random() * window.innerWidth/2;
+                randomY = Math.random() * window.innerHeight/2;
+            }
+
+
+                return reRenderObj = (setTimeout( () => {
+                    this.setState({
+                        obstacleAppearance: true,
+                        obstacleSize: 20,
+                        obstacleCoordinate: {
+                            top: randomY,
+                            left: randomX
+                        }
+                    })
+                }, 2000))
+          // }  
     }
     
     reRenderObstacle2 = () => {
@@ -429,7 +433,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 200,
                                     })
                                 }
                                 //firing obstacle 2 at size 20
@@ -449,7 +454,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 200,
                                     })
                                 }
                                 // firing obstacle 1 at size 10
@@ -468,7 +474,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 100,
                                     }, () => {
                                         this.reRenderObstacle()
                                     })
@@ -490,7 +497,8 @@ class World extends Component {
                                     attackPosition: {
                                         left: 0,
                                         top: 0,
-                                    }
+                                    },
+                                    gameScore: this.state.gameScore + 100,
                                 }, () => {
                                     this.reRenderObstacle2()
                                 })
@@ -546,7 +554,8 @@ class World extends Component {
                                     attackPosition: {
                                         left: 0,
                                         top: 0,
-                                    }
+                                    },
+                                    gameScore: this.state.gameScore + 200,
                                 })
                             }
                             //firing obstacle 2 at size 20
@@ -566,7 +575,8 @@ class World extends Component {
                                     attackPosition: {
                                         left: 0,
                                         top: 0,
-                                    }
+                                    },
+                                    gameScore: this.state.gameScore + 200,
                                 })
                             }
                             // firing obstacle 1 at size 10
@@ -585,7 +595,8 @@ class World extends Component {
                                             attackPosition: {
                                                 left: 0,
                                                 top: 0,
-                                            }
+                                            },
+                                            gameScore: this.state.gameScore + 100,
                                         }, () => {
                                             this.reRenderObstacle()
                                         })
@@ -607,7 +618,8 @@ class World extends Component {
                                             attackPosition: {
                                                 left: 0,
                                                 top: 0,
-                                            }
+                                            },
+                                            gameScore: this.state.gameScore + 100,
                                         }, () => {
                                             this.reRenderObstacle2()
                                         })
@@ -663,7 +675,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 200,
                                     })
                                 }
                                 //firing Obstacle 2 at size 20
@@ -683,7 +696,8 @@ class World extends Component {
                                             attackPosition: {
                                                 left: 0,
                                                 top: 0,
-                                            }
+                                            },
+                                            gameScore: this.state.gameScore + 200,
                                         })
                                     }
                             //firing Obstacle 1 at size 10
@@ -703,7 +717,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 100,
                                     }, () => {
                                         this.reRenderObstacle()
                                     })
@@ -725,7 +740,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 100,
                                     }, () => {
                                         this.reRenderObstacle2()
                                     })
@@ -781,7 +797,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 200,
                                     })
                                 }
                             //firing obstacle 2 at size 20
@@ -801,7 +818,8 @@ class World extends Component {
                                         attackPosition: {
                                             left: 0,
                                             top: 0,
-                                        }
+                                        },
+                                        gameScore: this.state.gameScore + 200,
                                     })
                                 }
                             //firing obstacle 1 at size 10    
@@ -821,7 +839,8 @@ class World extends Component {
                                     attackPosition: {
                                         left: null,
                                         top: null,
-                                        }
+                                        },
+                                    gameScore: this.state.gameScore + 100,
                                     }, () => {
                                         this.reRenderObstacle()
                                     })
@@ -843,7 +862,8 @@ class World extends Component {
                                     attackPosition: {
                                         left: null,
                                         top: null,
-                                        }
+                                        },
+                                    gameScore: this.state.gameScore + 100,
                                     }, () => {
                                         this.reRenderObstacle2()
                                     })
@@ -890,7 +910,7 @@ class World extends Component {
             <Ship shipSrc={this.state.shipSrc} attackDirection={this.state.attackDirection} attackPosition={this.state.attackPosition} currentPosition={this.state.currentPosition} currentDirection={this.state.currentDirection} handleControls={this.handleControls} attack={this.state.attack}/>
             {this.state.obstacleAppearance == true ? <Obstacle obstacleCoordinate={this.state.obstacleCoordinate} obstacleSize={this.state.obstacleSize}/> : null}
             {this.state.obstacleAppearance2 == true ? <Obstacle2 obstacleCoordinate2={this.state.obstacleCoordinate2} obstacleSize2={this.state.obstacleSize2}/> : null}
-            
+            <Score gameScore={this.state.gameScore}/>
             </div>
         );
     }
