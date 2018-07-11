@@ -298,11 +298,8 @@ class World extends Component {
                                     })
                                 } //end of callback if statement
                                 else if (
-                                    (this.state.attackPosition.top == this.state.obstacleCoordinate.top + 200
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 201
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 201
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 202
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 202
+                                    ((this.state.attackPosition.top < this.state.obstacleCoordinate.top + 220
+                                      && this.state.attackPosition.top > this.state.obstacleCoordinate.top - 220)
                                     ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left
                                     && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
                                 ) //entire else if (obs-size == 20)
@@ -553,11 +550,8 @@ class World extends Component {
                                     })
                                 } //end of callback if statement
                             else if (
-                                (this.state.attackPosition.left == this.state.obstacleCoordinate.left + 200
-                                || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 201
-                                || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 201
-                                || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 202
-                                || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 202
+                                (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 210
+                                  && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 210
                                 ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
                                 && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 340) && (this.state.obstacleSize == 20)
                                 ) //entire else if (obs-size == 20)
