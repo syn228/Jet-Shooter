@@ -5,6 +5,9 @@ import Obstacle from './Obstacle'
 import Obstacle2 from './Obstacle2'
 import Score from './Score'
 import explosion from '../assets/explosion.gif'
+import Soundtrack from "../assets/Soundtrack.mp3"
+import explosionSound from "../assets/explosionSound.mp3"
+import GameOver from './GameOver'
 
 // Acceleration for Ship (Accessed inside handleControls)
 var upwardAcceleration = []
@@ -12,12 +15,27 @@ var downwardAcceleration = []
 var leftwardAcceleration = []
 var rightwardAcceleration = []
 
+
 var reRenderObj = []
+
+let gameBackgroundMusic = document.createElement("audio")
+        gameBackgroundMusic.src = `${Soundtrack}`
+        gameBackgroundMusic.setAttribute("preload", "auto");
+        gameBackgroundMusic.setAttribute("controls", "none");
+        gameBackgroundMusic.style.display = "none";
+
+let explosionSoundEffect = document.createElement("audio")
+explosionSoundEffect.src = `${explosionSound}`
+explosionSoundEffect.setAttribute("preload", "auto");
+explosionSoundEffect.setAttribute("controls", "none");
+explosionSoundEffect.style.display = "none";
+explosionSoundEffect.volume = .3
+
 
 class World extends Component {
     state = {
         shipSrc: "http://www.pngmart.com/files/3/Spaceship-PNG-Image.png",
-        shipSpeed: 3,
+        shipSpeed: 5,
         currentDirection: 0,
         currentPosition: {
             test: false,
@@ -47,7 +65,8 @@ class World extends Component {
         },
         obstacleSpeed: 1,
         gameOverCounter: 0,
-        gameScore: 0
+        gameScore: 0,
+        gameActive: true
     }
 
     componentDidMount() {
@@ -218,6 +237,10 @@ class World extends Component {
 
         //Move Up: (W)
         case 87:
+            console.log(gameBackgroundMusic);
+            
+            document.body.appendChild(gameBackgroundMusic)
+            gameBackgroundMusic.play()
             this.obstacleReappend()
             this.decelerate(downwardAcceleration);
             upwardAcceleration.push(setInterval(() => {
@@ -988,7 +1011,12 @@ class World extends Component {
             },
           })
           if (this.state.gameOverCounter === 1){
-              alert("GAME OVER!")
+              this.setState({
+                  gameActive: false
+              }, () => {
+                gameBackgroundMusic.pause();
+                explosionSoundEffect.play()
+              });
           }
       }
 
@@ -1000,6 +1028,7 @@ class World extends Component {
             {this.state.obstacleAppearance == true ? <Obstacle obstacleCoordinate={this.state.obstacleCoordinate} obstacleSize={this.state.obstacleSize}/> : null}
             {this.state.obstacleAppearance2 == true ? <Obstacle2 obstacleCoordinate2={this.state.obstacleCoordinate2} obstacleSize2={this.state.obstacleSize2}/> : null}
             <Score gameScore={this.state.gameScore}/>
+            {this.state.gameActive == false ? <GameOver /> : null}
             </div>
         );
     }
