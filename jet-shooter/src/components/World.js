@@ -55,7 +55,7 @@ class World extends Component {
         var obstacleLocation =
             setInterval( () => {
                 this.setState({
-                    obstacleCoordinate: {
+                obstacleCoordinate: {
                         top: this.state.obstacleCoordinate.top + this.state.obstacleSpeed,
                         left: this.state.obstacleCoordinate.left + this.state.obstacleSpeed,
                     },
@@ -67,43 +67,69 @@ class World extends Component {
         }, 100 )
     }
 
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.state.gameScore >= 1000 && this.state.gameScore < 2000){
+    //         this.setState({
+    //             obstacleSpeed: 2
+    //         });
+    //     }
+    //     else if (this.state.gameScore >= 2000 && this.state.gameScore < 3000){
+    //         this.setState({
+    //             obstacleSpeed: 3
+    //         });
+    //     }
+    // }
+    
+
     reRenderObstacle = () => {
-        let randomX = Math.random() * window.innerWidth;
+        let speedConstant = (this.state.obstacleSpeed) + (this.state.gameScore/1000)
+        let randomX = Math.random() * window.innerWidth/1.5;
         let randomY = Math.random() * window.innerHeight/2;
-        if ((randomX < this.state.currentPosition.left + 50 
-            && randomX > this.state.currentPosition.left - 50)
-            && (randomY < this.state.currentPosition.top + 50 
-            && randomY > this.state.currentPosition.top - 50)
+        if ((randomX < this.state.currentPosition.left + 250 
+            && randomX > this.state.currentPosition.left - 250)
+            && (randomY < this.state.currentPosition.top + 250 
+            && randomY > this.state.currentPosition.top - 250)
             ){
-                randomX = Math.random() * window.innerWidth/2;
-                randomY = Math.random() * window.innerHeight/2;
-            }
+                randomX = 0
+                randomY = 0
+            }  
 
-
-                return reRenderObj = (setTimeout( () => {
-                    this.setState({
-                        obstacleAppearance: true,
-                        obstacleSize: 20,
-                        obstacleCoordinate: {
-                            top: randomY,
-                            left: randomX
-                        }
-                    })
-                }, 2000))
-          // }  
+            return reRenderObj = (setTimeout( () => {
+                this.setState({
+                    obstacleSpeed: speedConstant,
+                    obstacleAppearance: true,
+                    obstacleSize: 20,
+                    obstacleCoordinate: {
+                        top: randomY,
+                        left: randomX
+                    }
+                })
+            }, 2000))
     }
     
     reRenderObstacle2 = () => {
-        return reRenderObj = (setTimeout( () => {
-            this.setState({
-                obstacleAppearance2: true,
-                obstacleSize2: 20,
-                obstacleCoordinate2: {
-                    top: 100,
-                    left: 800
-                }
-            })
-        }, 2000))
+        let speedConstant = (this.state.obstacleSpeed) + (this.state.gameScore/1000)
+        let randomX = Math.random() * window.innerWidth/1.5;
+        let randomY = Math.random() * window.innerHeight/2;
+        if ((randomX < this.state.currentPosition.left + 250 
+            && randomX > this.state.currentPosition.left - 250)
+            && (randomY < this.state.currentPosition.top + 250 
+            && randomY > this.state.currentPosition.top - 250)
+            ){
+                randomX = 0
+                randomY = 0
+            }      
+            return reRenderObj = (setTimeout( () => {
+                this.setState({
+                    obstacleSpeed: speedConstant,
+                    obstacleAppearance2: true,
+                    obstacleSize2: 20,
+                    obstacleCoordinate2: {
+                        top: randomX,
+                        left: randomY
+                    }
+                })
+            }, 2000))  
     }
 
     decelerate = (direction) => {
@@ -134,7 +160,15 @@ class World extends Component {
 
         //Move Up: (W)
         case 87:
-           this.decelerate(downwardAcceleration);
+            if (this.state.obstacleCoordinate.top >= window.innerHeight){
+                this.setState({
+                    obstacleCoordinate: {
+                        top: 0,
+                        left: this.state.obstacleCoordinate.left 
+                    }
+                })
+            }
+            this.decelerate(downwardAcceleration);
             upwardAcceleration.push(setInterval(() => {
                 if (this.state.currentPosition.top < 0)  {
                     this.setState({
@@ -395,7 +429,8 @@ class World extends Component {
         break;
 
         //Fire Projectiles
-        case 32:
+        case 16:
+            
             if (this.state.attack !== true) {
                 // Fire Upward
                 if (this.state.currentDirection === 0){
