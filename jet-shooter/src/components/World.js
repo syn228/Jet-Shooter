@@ -52,6 +52,7 @@ class World extends Component {
 
     componentDidMount() {
         window.addEventListener("keydown", this.handleControls)
+        
         var obstacleLocation =
             setInterval( () => {
                 this.setState({
@@ -72,7 +73,7 @@ class World extends Component {
         if (this.state.obstacleCoordinate.top >= window.innerHeight){
             this.setState({
                 obstacleCoordinate: {
-                    top: 0,
+                    top: -100,
                     left: this.state.obstacleCoordinate.left 
                 }
             })
@@ -105,7 +106,7 @@ class World extends Component {
         else if (this.state.obstacleCoordinate2.top >= window.innerHeight){
             this.setState({
                 obstacleCoordinate2: {
-                    top: 0,
+                    top: -100,
                     left: this.state.obstacleCoordinate2.left 
                 }
             })
@@ -195,7 +196,9 @@ class World extends Component {
     }
 
     handleControls = (event) => {
-        // let {currentPosition} = this.state
+        if([ 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+            event.preventDefault();
+        }
         switch (event.keyCode) {
         case 37:
           this.setState({currentDirection: 270})
