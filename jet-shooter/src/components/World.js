@@ -81,7 +81,6 @@ class World extends Component {
                 if (this.state.currentPosition.top < 0)  {
                     this.setState({
                         currentPosition: {
-                            test: true,
                             top: window.innerHeight,
                             left: this.state.currentPosition.left
                         }
@@ -304,7 +303,7 @@ class World extends Component {
                                     && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
                                 ) //entire else if (obs-size == 20)
                                 {
-                                    clearInterval(rightwardProjectile)
+                                    clearInterval(upwardProjectile)
                                     this.setState({
                                         obstacleSize: this.state.obstacleSize-10,
                                         attack: null,
@@ -316,16 +315,13 @@ class World extends Component {
                                     })
                                 }
                                 else if (
-                                    (this.state.attackPosition.top == this.state.obstacleCoordinate.top + 100
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 101
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 101
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 102
-                                    || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 102
+                                    ((this.state.attackPosition.top < this.state.obstacleCoordinate.top + 110
+                                    && this.state.attackPosition.top > this.state.obstacleCoordinate.top - 110)
                                     ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left -20
                                         && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 100) && (this.state.obstacleSize == 10)
                                     ) //entire else if (obs-size == 10)
                                 {
-                                    clearInterval(rightwardProjectile)
+                                    clearInterval(upwardProjectile)
                                     this.setState({
                                         obstacleSize: this.state.obstacleSize-10,
                                         attack: null,
