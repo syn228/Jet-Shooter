@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Ship from './Ship'
 import keydown from 'react-keydown'
 import Obstacle from './Obstacle'
+import Obstacle2 from './Obstacle2'
 import explosion from '../assets/explosion.gif'
 
 // Acceleration for Ship (Accessed inside handleControls)
@@ -9,6 +10,8 @@ var upwardAcceleration = []
 var downwardAcceleration = []
 var leftwardAcceleration = []
 var rightwardAcceleration = []
+
+var reRenderObj = []
 
 class World extends Component {
     state = {
@@ -29,10 +32,19 @@ class World extends Component {
         },
         obstacleAppearance: true,
         obstacleSize: 20,
+        obstacleCounter: 0,
         obstacleCoordinate: {
             top: 100,
             left: 0,
         },
+        obstacleAppearance2: true,
+        obstacleSize2: 20,
+        obstacleCounter2: 0,
+        obstacleCoordinate2: {
+            top: 100,
+            left: 800,
+        },
+        obstacleSpeed: 1,
         gameOverCounter: 0
     }
 
@@ -42,12 +54,42 @@ class World extends Component {
             setInterval( () => {
                 this.setState({
                     obstacleCoordinate: {
-                        top: this.state.obstacleCoordinate.top + 1,
-                        left: this.state.obstacleCoordinate.left + 1,
+                        top: this.state.obstacleCoordinate.top + this.state.obstacleSpeed,
+                        left: this.state.obstacleCoordinate.left + this.state.obstacleSpeed,
+                    },
+                    obstacleCoordinate2: {
+                        top: this.state.obstacleCoordinate2.top - this.state.obstacleSpeed,
+                        left: this.state.obstacleCoordinate2.left - this.state.obstacleSpeed,
                     }
                 })
         }, 100 )
+        if (this.state.obstacleCounter !== 0){
+            this.setState({
+                obstacleAppearance: true,
+                obstacleCounter: 0,
+                obstacleSize: 20,
+                obstacleCoordinate: {
+                    top: 0,
+                    left: 0
+                }
+            })
+        }
     }
+
+    reRenderObstacle = () => {
+        reRenderObj = (setTimeout( () => {
+            this.setState({
+                obstacleAppearance: true,
+                obstacleSize: 20,
+                obstacleCoordinate: {
+                    top: 0,
+                    left: 0
+                }
+            })
+        }, 500))
+        return reRenderObj
+    }
+    
 
     decelerate = (direction) => {
         while (direction.length !== 0) {
@@ -57,6 +99,7 @@ class World extends Component {
     }
 
     handleControls = (event) => {
+        // let {currentPosition} = this.state
         switch (event.keyCode) {
         case 37:
           this.setState({currentDirection: 270})
@@ -116,7 +159,7 @@ class World extends Component {
                         ) {
                             this.gameOver();
                         }
-                else console.log(("nope"));
+                
                     })
                 }
             }, 100)
@@ -166,7 +209,7 @@ class World extends Component {
                             {
                         this.gameOver();
                         }
-                    else console.log(("nope"));
+                    
                     })
                 }
             }, 100)
@@ -216,7 +259,7 @@ class World extends Component {
                             {
                         this.gameOver();
                         }
-                    else console.log(("nope"));
+                    
                     })
                 }
             }, 100)
@@ -266,7 +309,7 @@ class World extends Component {
                             {
                         this.gameOver();
                         }
-                    else console.log(("nope"));
+                    
                     })
                 }
             }, 100)
@@ -335,6 +378,7 @@ class World extends Component {
                                 else if (this.state.obstacleSize !== 20 && this.state.obstacleSize !== 10){
                                     this.setState({
                                         obstacleAppearance: false,
+                                        obstacleCounter: 1,
                                         obstacleCoordinate:{
                                             top: null,
                                             left: null
@@ -564,27 +608,35 @@ class World extends Component {
                                 ) //entire else if (obs-size == 10)
                                 {
                                 clearInterval(leftwardProjectile)
+                                    console.log("TRY DESTROYING");
+                                    
                                     this.setState({
                                     obstacleSize: this.state.obstacleSize-10,
                                     attack: null,
                                     attackDirection: 0,
                                     attackPosition: {
-                                        left: 0,
-                                        top: 0,
+                                        left: null,
+                                        top: null,
                                         }
+                                    }, () => {
+                                        this.reRenderObstacle()
                                     })
                                 }
                             else if (this.state.obstacleSize !== 20 && this.state.obstacleSize !== 10){
+                                console.log("DESTROYING OBJECT");
+                                
                                 this.setState({
                                     obstacleAppearance: false,
                                     obstacleCoordinate:{
                                         top: null,
                                         left: null
                                     }
+                                }, () => {
+                                    this.reRenderObstacle()
                                 })
                             }// end of obstaclesize== 0 if statement
                         } // end of callback function
-                    ) // end of sst in setInterval
+                    ) // end of sst in setInterval 
                 }, 10) // end of setInt
                         this.setState({
                             attack: true,
@@ -624,6 +676,8 @@ class World extends Component {
             <div>
             <Ship shipSrc={this.state.shipSrc} attackDirection={this.state.attackDirection} attackPosition={this.state.attackPosition} currentPosition={this.state.currentPosition} currentDirection={this.state.currentDirection} handleControls={this.handleControls} attack={this.state.attack}/>
             {this.state.obstacleAppearance == true ? <Obstacle obstacleCoordinate={this.state.obstacleCoordinate} obstacleSize={this.state.obstacleSize}/> : null}
+            {this.state.obstacleAppearance2 == true ? <Obstacle2 obstacleCoordinate2={this.state.obstacleCoordinate2} obstacleSize2={this.state.obstacleSize2}/> : null}
+            
             </div>
         );
     }
