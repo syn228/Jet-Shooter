@@ -12,7 +12,7 @@ var rightwardAcceleration = []
 
 class World extends Component {
     state = {
-        shipSrc: "http://www.pngmart.com/files/3/Spaceship-PNG-Image.png", 
+        shipSrc: "http://www.pngmart.com/files/3/Spaceship-PNG-Image.png",
         shipSpeed: 3,
         currentDirection: 0,
         currentPosition: {
@@ -35,10 +35,10 @@ class World extends Component {
         },
         gameOverCounter: 0
     }
-  
+
     componentDidMount() {
         window.addEventListener("keydown", this.handleControls)
-        var obstacleLocation = 
+        var obstacleLocation =
             setInterval( () => {
                 this.setState({
                     obstacleCoordinate: {
@@ -48,7 +48,7 @@ class World extends Component {
                 })
         }, 100 )
     }
- 
+
     decelerate = (direction) => {
         while (direction.length !== 0) {
             var individualInterval = direction.pop();
@@ -90,31 +90,31 @@ class World extends Component {
                 else {
                     this.setState({
                         currentPosition: {
-                            top: this.state.currentPosition.top - this.state.shipSpeed, 
-                            left: this.state.currentPosition.left 
-                        } 
+                            top: this.state.currentPosition.top - this.state.shipSpeed,
+                            left: this.state.currentPosition.left
+                        }
                     }, () => {
-                    
+
                         if (
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left 
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230) 
-                                                            && 
+                                                            &&
+                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
+                                                            &&
                             (this.state.obstacleSize === 20 && this.state.obstacleAppearance == true)
-                        ) { 
-                            this.gameOver();   
+                        ) {
+                            this.gameOver();
                         }
                         else if (
                             (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
+                                                            &&
                             (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
                                                             &&
                             (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
-                        ) { 
+                        ) {
                             this.gameOver();
                         }
                 else console.log(("nope"));
@@ -128,7 +128,7 @@ class World extends Component {
         case 65:
             this.decelerate(rightwardAcceleration);
             leftwardAcceleration.push(setInterval(() => {
-                if (this.state.currentPosition.left === 1){
+                if (this.state.currentPosition.left < 1){
                     this.setState({
                         currentPosition: {
                             top: this.state.currentPosition.top,
@@ -139,35 +139,35 @@ class World extends Component {
                 else {
                     this.setState({
                         currentPosition: {
-                            top: this.state.currentPosition.top, 
-                            left: this.state.currentPosition.left - this.state.shipSpeed 
-                        } 
+                            top: this.state.currentPosition.top,
+                            left: this.state.currentPosition.left - this.state.shipSpeed
+                        }
                     }, () => {
                         if (
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
+                                                            &&
                             (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
                                                             &&
                             (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
-                            { 
+                            {
                         this.gameOver();
                         }
                         else if (
                             (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
+                                                            &&
                             (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
                                                             &&
                             (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
                         )
-                            { 
+                            {
                         this.gameOver();
                         }
-                    else console.log(("nope")); 
+                    else console.log(("nope"));
                     })
                 }
             }, 100)
@@ -189,32 +189,32 @@ class World extends Component {
                 else {
                     this.setState({
                         currentPosition: {
-                            top: this.state.currentPosition.top, 
-                            left: this.state.currentPosition.left + this.state.shipSpeed 
-                        } 
+                            top: this.state.currentPosition.top,
+                            left: this.state.currentPosition.left + this.state.shipSpeed
+                        }
                     }, () => {
                         if (
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
+                                                            &&
                             (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
                                                             &&
                             (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                             )
-                        { 
+                        {
                             this.gameOver();
                     }
                         else if (
                             (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
+                                                            &&
                             (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
                                                             &&
                             (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
                         )
-                            { 
+                            {
                         this.gameOver();
                         }
                     else console.log(("nope"));
@@ -239,35 +239,35 @@ class World extends Component {
                 else{
                     this.setState({
                         currentPosition: {
-                            top: this.state.currentPosition.top + this.state.shipSpeed, 
-                            left: this.state.currentPosition.left 
-                        } 
+                            top: this.state.currentPosition.top + this.state.shipSpeed,
+                            left: this.state.currentPosition.left
+                        }
                     }, () => {
                         if (
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220 
+                            (this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
+                                                            &&
                             (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
                                                             &&
                             (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true)
                         )
-                            { 
+                            {
                         this.gameOver();
                         }
                         else if (
                             (this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
                             && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            && 
+                                                            &&
                             (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)  
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
                                                             &&
                             (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true)
                         )
-                            { 
+                            {
                         this.gameOver();
-                        }   
-                    else console.log(("nope")); 
+                        }
+                    else console.log(("nope"));
                     })
                 }
             }, 100)
@@ -295,15 +295,15 @@ class World extends Component {
                                             left: 0,
                                             top: 0,
                                         }
-                                    })          
-                                } //end of callback if statement 
+                                    })
+                                } //end of callback if statement
                                 else if (
                                     (this.state.attackPosition.top == this.state.obstacleCoordinate.top + 200
                                     || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 201
                                     || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 201
                                     || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 202
                                     || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 202
-                                    ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left 
+                                    ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left
                                     && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
                                 ) //entire else if (obs-size == 20)
                                 {
@@ -348,7 +348,7 @@ class World extends Component {
                                         }
                                     })
                                 }// end of obstaclesize== 0 if statement
-                            } // end of callback function 
+                            } // end of callback function
                         ) // end of sst in setInterval
                     }, 10) // end of setInt
                 this.setState({
@@ -359,9 +359,9 @@ class World extends Component {
                         top: this.state.currentPosition.top - 65
                     }
                 })
-                    upwardProjectile        
+                    upwardProjectile
                 } // end of Ship-Up if statement
-            
+
                 // Fire Downward
                 if (this.state.currentDirection === 180){
                     var downwardProjectile = setInterval(() => {
@@ -380,15 +380,15 @@ class World extends Component {
                                             left: 0,
                                             top: 0,
                                         }
-                                    })          
-                            } //end of callback if statement 
+                                    })
+                            } //end of callback if statement
                             else if (
-                                (this.state.attackPosition.top == this.state.obstacleCoordinate.top 
+                                (this.state.attackPosition.top == this.state.obstacleCoordinate.top
                                 || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 1
                                 || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 1
                                 || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 2
                                 || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 2
-                                ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left 
+                                ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left
                                     && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
                             ) //entire else if (obs-size == 20)
                             {
@@ -404,7 +404,7 @@ class World extends Component {
                                 })
                             }
                             else if (
-                                (this.state.attackPosition.top == this.state.obstacleCoordinate.top 
+                                (this.state.attackPosition.top == this.state.obstacleCoordinate.top
                                 || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 1
                                 || this.state.attackPosition.top == this.state.obstacleCoordinate.top - 1
                                 || this.state.attackPosition.top == this.state.obstacleCoordinate.top + 2
@@ -433,7 +433,7 @@ class World extends Component {
                                     }
                                 })
                             }// end of obstaclesize== 0 if statement
-                        } // end of callback function 
+                        } // end of callback function
                     ) // end of sst in setInterval
                 }, 10) // end of setInt
                     this.setState({
@@ -465,15 +465,15 @@ class World extends Component {
                                             left: 0,
                                             top: 0,
                                         }
-                                    })          
-                                } //end of callback if statement 
+                                    })
+                                } //end of callback if statement
                             else if (
                                 (this.state.attackPosition.left == this.state.obstacleCoordinate.left
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 1
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 1
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 2
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 2
-                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top 
+                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
                                 && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 340) && (this.state.obstacleSize == 20)
                                 ) //entire else if (obs-size == 20)
                                 {
@@ -489,12 +489,12 @@ class World extends Component {
                                     })
                                 }
                             else if (
-                                (this.state.attackPosition.left == this.state.obstacleCoordinate.left 
+                                (this.state.attackPosition.left == this.state.obstacleCoordinate.left
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 1
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 1
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 2
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 2
-                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top 
+                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
                                     && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 100) && (this.state.obstacleSize == 10)
                                 ) //entire else if (obs-size == 10)
                                 {
@@ -518,7 +518,7 @@ class World extends Component {
                                     }
                                 })
                             }// end of obstaclesize== 0 if statement
-                        } // end of callback function 
+                        } // end of callback function
                     ) // end of sst in setInterval
                 }, 10) // end of setInt
                         this.setState({
@@ -529,7 +529,7 @@ class World extends Component {
                                 top: this.state.currentPosition.top + 3
                             }
                         })
-                            rightwardProjectile            
+                            rightwardProjectile
                     } // end of Fire Right if statement
 
                 // Fire Left
@@ -550,15 +550,15 @@ class World extends Component {
                                             left: 0,
                                             top: 0,
                                         }
-                                    })          
-                                } //end of callback if statement 
+                                    })
+                                } //end of callback if statement
                             else if (
                                 (this.state.attackPosition.left == this.state.obstacleCoordinate.left + 200
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 201
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 201
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 202
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 202
-                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top 
+                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
                                 && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 340) && (this.state.obstacleSize == 20)
                                 ) //entire else if (obs-size == 20)
                                 {
@@ -579,7 +579,7 @@ class World extends Component {
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 101
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left + 102
                                 || this.state.attackPosition.left == this.state.obstacleCoordinate.left - 102
-                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top 
+                                ) && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
                                 && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 100) && (this.state.obstacleSize == 10)
                                 ) //entire else if (obs-size == 10)
                                 {
@@ -603,7 +603,7 @@ class World extends Component {
                                     }
                                 })
                             }// end of obstaclesize== 0 if statement
-                        } // end of callback function 
+                        } // end of callback function
                     ) // end of sst in setInterval
                 }, 10) // end of setInt
                         this.setState({
@@ -622,7 +622,7 @@ class World extends Component {
         break;
         }
     }
-    
+
       gameOver = () => {
           this.setState ({
               shipSrc: explosion,
@@ -637,7 +637,7 @@ class World extends Component {
               alert("GAME OVER!")
           }
       }
-    
+
     render() {
 
         return (
