@@ -67,19 +67,74 @@ class World extends Component {
         }, 100 )
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.gameScore >= 1000 && this.state.gameScore < 2000){
-    //         this.setState({
-    //             obstacleSpeed: 2
-    //         });
-    //     }
-    //     else if (this.state.gameScore >= 2000 && this.state.gameScore < 3000){
-    //         this.setState({
-    //             obstacleSpeed: 3
-    //         });
-    //     }
-    // }
-    
+    obstacleReappend = () => {
+        //obstacle 1
+        if (this.state.obstacleCoordinate.top >= window.innerHeight){
+            this.setState({
+                obstacleCoordinate: {
+                    top: 0,
+                    left: this.state.obstacleCoordinate.left 
+                }
+            })
+        }
+        else if (this.state.obstacleCoordinate.top + 200 <= 0){
+            this.setState({
+                obstacleCoordinate: {
+                    top: window.innerHeight,
+                    left: this.state.obstacleCoordinate.left 
+                }
+            })
+        }
+        else if (this.state.obstacleCoordinate.left >= window.innerWidth){
+            this.setState({
+                obstacleCoordinate: {
+                    top: this.state.obstacleCoordinate.top,
+                    left: 0 
+                }
+            })
+        }
+        else if (this.state.obstacleCoordinate.left + 200 <= 0 ){
+            this.setState({
+                obstacleCoordinate: {
+                    top: this.state.obstacleCoordinate.top,
+                    left: window.innerWidth, 
+                }
+            })
+        }
+        //obstacle 2 re-append
+        else if (this.state.obstacleCoordinate2.top >= window.innerHeight){
+            this.setState({
+                obstacleCoordinate2: {
+                    top: 0,
+                    left: this.state.obstacleCoordinate2.left 
+                }
+            })
+        }
+        else if (this.state.obstacleCoordinate2.top + 200 <= 0){
+            this.setState({
+                obstacleCoordinate2: {
+                    top: window.innerHeight,
+                    left: this.state.obstacleCoordinate2.left 
+                }
+            })
+        }
+        else if (this.state.obstacleCoordinate2.left >= window.innerWidth){
+            this.setState({
+                obstacleCoordinate2: {
+                    top: this.state.obstacleCoordinate2.top,
+                    left: 0 
+                }
+            })
+        }
+        else if (this.state.obstacleCoordinate2.left + 200 <= 0 ){
+            this.setState({
+                obstacleCoordinate2: {
+                    top: this.state.obstacleCoordinate2.top,
+                    left: window.innerWidth, 
+                }
+            })
+        }
+    }
 
     reRenderObstacle = () => {
         let speedConstant = (this.state.obstacleSpeed) + (this.state.gameScore/1000)
@@ -116,8 +171,8 @@ class World extends Component {
             && (randomY < this.state.currentPosition.top + 250 
             && randomY > this.state.currentPosition.top - 250)
             ){
-                randomX = 0
-                randomY = 0
+                randomX = 500
+                randomY = 400
             }      
             return reRenderObj = (setTimeout( () => {
                 this.setState({
@@ -125,8 +180,8 @@ class World extends Component {
                     obstacleAppearance2: true,
                     obstacleSize2: 20,
                     obstacleCoordinate2: {
-                        top: randomX,
-                        left: randomY
+                        top: randomY,
+                        left: randomX
                     }
                 })
             }, 2000))  
@@ -160,14 +215,7 @@ class World extends Component {
 
         //Move Up: (W)
         case 87:
-            if (this.state.obstacleCoordinate.top >= window.innerHeight){
-                this.setState({
-                    obstacleCoordinate: {
-                        top: 0,
-                        left: this.state.obstacleCoordinate.left 
-                    }
-                })
-            }
+            this.obstacleReappend()
             this.decelerate(downwardAcceleration);
             upwardAcceleration.push(setInterval(() => {
                 if (this.state.currentPosition.top < 0)  {
@@ -232,6 +280,7 @@ class World extends Component {
 
         //Move Left (A)
         case 65:
+            this.obstacleReappend()
             this.decelerate(rightwardAcceleration);
             leftwardAcceleration.push(setInterval(() => {
                 if (this.state.currentPosition.left < 1){
@@ -298,6 +347,7 @@ class World extends Component {
 
            //Move Right (D)
         case 68:
+            this.obstacleReappend()
             this.decelerate(leftwardAcceleration);
             rightwardAcceleration.push(setInterval(() => {
                 if (this.state.currentPosition.left > window.innerWidth){
@@ -364,6 +414,7 @@ class World extends Component {
 
         //Move Down (S)
         case 83:
+            this.obstacleReappend()
             this.decelerate(upwardAcceleration);
             downwardAcceleration.push(setInterval(() => {
                 if (this.state.currentPosition.top > window.innerHeight)  {
