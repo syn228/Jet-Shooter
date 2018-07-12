@@ -1027,7 +1027,7 @@ class World extends Component {
                 this.setState({
                     gameActive: false
                 }, () => {
-                  gameBackgroundMusic.pause();
+                  gameBackgroundMusic.remove();
                   explosionSoundEffect.play()
                 });
               const body = {

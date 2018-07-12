@@ -77,10 +77,11 @@ class App extends Component {
 
   getUsers(data) {
     data.map(user => userArray.push(user))
-    const match = userArray.find(user => user.username === this.state.userNameValue)
+    let match = userArray.find(user => user.username === this.state.userNameValue)
     if (match !== undefined) {
       this.setState({
-        currentUser: match
+        currentUser: match,
+        loggedIn: true
       })
     }
     else {
