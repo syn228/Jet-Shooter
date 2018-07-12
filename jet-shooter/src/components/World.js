@@ -7,6 +7,7 @@ import Score from './Score'
 import explosion from '../assets/explosion.gif'
 import Soundtrack from "../assets/Soundtrack.mp3"
 import explosionSound from "../assets/explosionSound.mp3"
+import shootingSound from "../assets/shootingSound.wav"
 import GameOver from './GameOver'
 
 // Acceleration for Ship (Accessed inside handleControls)
@@ -27,6 +28,13 @@ explosionSoundEffect.setAttribute("preload", "auto");
 explosionSoundEffect.setAttribute("controls", "none");
 explosionSoundEffect.style.display = "none";
 explosionSoundEffect.volume = .3
+
+let shootingSoundEffect = document.createElement("audio")
+shootingSoundEffect.src = `${shootingSound}`
+shootingSoundEffect.setAttribute("preload", "auto");
+shootingSoundEffect.setAttribute("controls", "none");
+shootingSoundEffect.style.display = "none";
+shootingSoundEffect.volume = .05
 
 class World extends Component {
     state = {
@@ -510,7 +518,8 @@ class World extends Component {
 
         //Fire Projectiles
         case 16:
-            
+        document.body.append(shootingSoundEffect)
+        shootingSoundEffect.play()
             if (this.state.attack !== true) {
                 // Fire Upward
                 if (this.state.currentDirection === 0){
