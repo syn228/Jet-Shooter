@@ -5,6 +5,7 @@ class GameOver extends Component {
         return (
             <div>
                 <h1 style={{color: "red", textAlign: "center"}}>Game Over</h1>
+                <h2 style={{color: "red", textAlign: "center"}}>Your Score: {this.props.gameScore}</h2>
             </div>
         );
     }

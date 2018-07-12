@@ -1,25 +1,36 @@
 class UsersController < ApplicationController
 
+    def index
+        render json: User.all
+    end
+
     def new
         @user = User.new
     end
 
     def create
-      @user = User.create(user_params)
-      if @user.valid?
-        console.log("yay")
-      else
-        flash[:errors] = @user.errors.full_messages
+        @user = User.new
+    
+        @user.username = params[:username]
+        @user.password = params[:password]
+    
+        if (@user.save)
+          render json: {
+            username: @user.username,
+            id: @user.id
+            # token: get_token(payload(@user.username, @user.id))
+          }
+        else
+          render json: {
+            errors: @user.errors.full_messages
+          }, status: :unprocessable_entity
+        end
       end
-    end
 
     def edit
 
     end
 
-    private
 
-    def user_params
-        params.require(:user).permit(:username, :password)
-    end
+
 end

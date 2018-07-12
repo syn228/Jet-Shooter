@@ -30,6 +30,7 @@ explosionSoundEffect.volume = .3
 
 class World extends Component {
     state = {
+        shipStatus: null,
         shipSrc: "http://www.pngmart.com/files/3/Spaceship-PNG-Image.png",
         shipSpeed: 5,
         currentDirection: 0,
@@ -271,6 +272,7 @@ class World extends Component {
                             (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 == true) )
                         ) {
                             this.gameOver();
+                            return this.props.currentUser
                         }
                         else if (
                             ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -290,6 +292,7 @@ class World extends Component {
                                 (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true) )
                         ) {
                             this.gameOver();
+                            return this.props.currentUser
                         }
                 
                     })
@@ -337,6 +340,7 @@ class World extends Component {
                         )
                             {
                         this.gameOver();
+                        return this.props.currentUser
                         }
                         else if (
                             ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -357,6 +361,7 @@ class World extends Component {
                         )
                             {
                         this.gameOver();
+                        return this.props.currentUser
                         }
                     
                     })
@@ -404,6 +409,7 @@ class World extends Component {
                             )
                         {
                             this.gameOver();
+                            return this.props.currentUser
                     }
                         else if (
                             ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -424,6 +430,7 @@ class World extends Component {
                         )
                             {
                         this.gameOver();
+                        return this.props.currentUser
                         }
                     
                     })
@@ -471,6 +478,7 @@ class World extends Component {
                         )
                             {
                         this.gameOver();
+                        return this.props.currentUser
                         }
                         else if (
                             ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
@@ -491,6 +499,7 @@ class World extends Component {
                         )
                             {
                         this.gameOver();
+                        return this.props.currentUser
                         }
                     
                     })
@@ -996,6 +1005,7 @@ class World extends Component {
 
       gameOver = () => {
           this.setState ({
+              shipStatus: this.state.shipStatus + 1,
               shipSrc: explosion,
               gameOverCounter: this.state.gameOverCounter + 1,
               attack: true,
@@ -1003,15 +1013,32 @@ class World extends Component {
                 left: -100,
                 top: -100,
             },
+          }, () => {
+            if (this.state.gameOverCounter > 0){
+                this.setState({
+                    gameActive: false
+                }, () => {
+                  gameBackgroundMusic.pause();
+                  explosionSoundEffect.play()
+                });
+              const body = {
+                  score: this.state.gameScore,
+                  user_id: this.props.currentUser.id
+                  }
+              let config =  {
+                  method:'POST',
+                  headers:{
+                      'Content-type':'application/json',
+                      'Accept': 'application/json'
+                          },
+                  body:JSON.stringify(body)
+                  }
+              if (this.state.shipStatus < 2){
+                fetch('http://localhost:4000/games', config).then(r => r.json()).then(console.log)
+              } 
+            }
           })
-          if (this.state.gameOverCounter === 1){
-              this.setState({
-                  gameActive: false
-              }, () => {
-                gameBackgroundMusic.pause();
-                explosionSoundEffect.play()
-              });
-          }
+          
       }
 
     render() {
@@ -1021,7 +1048,7 @@ class World extends Component {
             {this.state.obstacleAppearance == true ? <Obstacle obstacleCoordinate={this.state.obstacleCoordinate} obstacleSize={this.state.obstacleSize}/> : null}
             {this.state.obstacleAppearance2 == true ? <Obstacle2 obstacleCoordinate2={this.state.obstacleCoordinate2} obstacleSize2={this.state.obstacleSize2}/> : null}
             <Score gameScore={this.state.gameScore}/>
-            {this.state.gameActive == false ? <GameOver /> : null}
+            {this.state.gameActive == false ? <GameOver gameScore={this.state.gameScore}/> : null}
             </div>
         );
     }
