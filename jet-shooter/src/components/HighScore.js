@@ -14,7 +14,7 @@ class HighScore extends Component {
         
         
         return (
-            <div style={{position: 'absolute', left: `${window.innerWidth/4}px`, boxSizing: 'border-box',color:'cyan', padding: '5px', border: 'solid #5B6DCD 10px', width:' 50%'}}><br/>
+            <div style={{position: 'absolute', top:`${window.innerHeight/3}px`,left: `${window.innerWidth/4}px`, boxSizing: 'border-box',color:'cyan', padding: '5px', border: 'solid #5B6DCD 10px', width:' 50%'}}><br></br>
                 High Scores:
                 {this.filterScores()}
             </div>

@@ -48,8 +48,7 @@ class App extends Component {
   
 
   filterGames = (data) => {
-    // let topScores = data.sort(function(a, b) {return b.score - a.score})
-    // let top3score = topScores.slice(0, 3)
+    if (this.state.currentGames.length === 0){
     this.setState({
       currentGames: data
     })    
@@ -68,6 +67,14 @@ class App extends Component {
     this.setState({
       scoreFilter: scores
     })
+  }
+    else {
+      this.setState({
+        scoreFilter: [],
+        currentGames: [],
+        infoArray: []
+      });
+    }
   }
 
   handleClick = (event) => {
