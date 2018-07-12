@@ -19,7 +19,8 @@ class App extends Component {
    currentGames: [],
    allUsers: [],
    infoArray: [],
-   scoreFilter: []
+   scoreFilter: [],
+   highScoreToggle: false,
  }
 
   handleChange = (event) => {
@@ -50,7 +51,8 @@ class App extends Component {
   filterGames = (data) => {
     if (this.state.currentGames.length === 0){
     this.setState({
-      currentGames: data
+      currentGames: data,
+      highScoreToggle: true,
     })    
     this.state.allUsers.map(user => this.state.currentGames.filter(game => {if (game.user_id == user.id){
       let userInstance = user.username
@@ -72,7 +74,8 @@ class App extends Component {
       this.setState({
         scoreFilter: [],
         currentGames: [],
-        infoArray: []
+        infoArray: [],
+        highScoreToggle: false,
       });
     }
   }
@@ -119,7 +122,7 @@ class App extends Component {
     
     return (
         <div style={{position:"absolute", backgroundImage: 'url(https://www.macleans.ca/wp-content/uploads/2014/07/stars-carousel.jpg)', height: "100%", width: "100%"}}>
-          {this.state.loggedIn == false ? <Login scoreFilter={this.state.scoreFilter} userMatch={userMatch} handleClick={this.handleClick} currentGames={this.state.currentGames} userNameValue={this.state.userNameValue} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/> : <World currentUser={this.state.currentUser}/>}
+          {this.state.loggedIn == false ? <Login highScoreToggle={this.state.highScoreToggle} scoreFilter={this.state.scoreFilter} handleClick={this.handleClick} userNameValue={this.state.userNameValue} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/> : <World currentUser={this.state.currentUser}/>}
         </div>
     );
   }

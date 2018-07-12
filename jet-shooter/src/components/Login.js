@@ -14,7 +14,7 @@ class Login extends Component {
                     <button type="submit">Submit</button>
                 </form>
                 <div style={{textAlign: "center"}}>
-                <button onClick={this.props.handleClick}>High Scores</button><br/>
+                {this.props.highScoreToggle == false ? <button onClick={this.props.handleClick}>High Scores</button> : <button onClick={this.props.handleClick}>Remove High Scores</button>}
                 {this.props.scoreFilter.length > 0 ? <HighScore scoreFilter={this.props.scoreFilter} /> : null}
                 </div>
             </Fragment>
