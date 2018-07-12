@@ -15,14 +15,11 @@ var downwardAcceleration = []
 var leftwardAcceleration = []
 var rightwardAcceleration = []
 
-
-var reRenderObj = []
-
 let gameBackgroundMusic = document.createElement("audio")
-        gameBackgroundMusic.src = `${Soundtrack}`
-        gameBackgroundMusic.setAttribute("preload", "auto");
-        gameBackgroundMusic.setAttribute("controls", "none");
-        gameBackgroundMusic.style.display = "none";
+gameBackgroundMusic.src = `${Soundtrack}`
+gameBackgroundMusic.setAttribute("preload", "auto");
+gameBackgroundMusic.setAttribute("controls", "none");
+gameBackgroundMusic.style.display = "none";
 
 let explosionSoundEffect = document.createElement("audio")
 explosionSoundEffect.src = `${explosionSound}`
@@ -30,7 +27,6 @@ explosionSoundEffect.setAttribute("preload", "auto");
 explosionSoundEffect.setAttribute("controls", "none");
 explosionSoundEffect.style.display = "none";
 explosionSoundEffect.volume = .3
-
 
 class World extends Component {
     state = {
@@ -169,7 +165,7 @@ class World extends Component {
                 randomY = 0
             }  
 
-            return reRenderObj = (setTimeout( () => {
+             (setTimeout( () => {
                 this.setState({
                     obstacleSpeed: speedConstant,
                     obstacleAppearance: true,
@@ -194,7 +190,7 @@ class World extends Component {
                 randomX = 500
                 randomY = 400
             }      
-            return reRenderObj = (setTimeout( () => {
+             (setTimeout( () => {
                 this.setState({
                     obstacleSpeed: speedConstant,
                     obstacleAppearance2: true,
@@ -237,8 +233,6 @@ class World extends Component {
 
         //Move Up: (W)
         case 87:
-            console.log(gameBackgroundMusic);
-            
             document.body.appendChild(gameBackgroundMusic)
             gameBackgroundMusic.play()
             this.obstacleReappend()
@@ -1021,7 +1015,6 @@ class World extends Component {
       }
 
     render() {
-
         return (
             <div>
             <Ship shipSrc={this.state.shipSrc} attackDirection={this.state.attackDirection} attackPosition={this.state.attackPosition} currentPosition={this.state.currentPosition} currentDirection={this.state.currentDirection} handleControls={this.handleControls} attack={this.state.attack}/>
