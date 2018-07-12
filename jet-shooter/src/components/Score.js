@@ -4,7 +4,7 @@ class Score extends Component {
     render() {
         return (
             <div>
-                <h4 style={{color: "white"}}>Score: {this.props.gameScore}</h4>
+                <h2 style={{textAlign: 'right', color: "white"}}>Score: {this.props.gameScore}</h2>
             </div>
         );
     }
