@@ -92,6 +92,268 @@ class World extends Component {
         }, 100 )
     }
 
+    moveDown = () => {
+        downwardAcceleration.push(setInterval(() => {
+            if (this.state.currentPosition.top > window.innerHeight)  {
+                this.setState({
+                    currentPosition: {
+                        top: 1,
+                        left: this.state.currentPosition.left
+                    }
+                })
+            }
+            else{
+                this.setState({
+                    currentPosition: {
+                        top: this.state.currentPosition.top + this.state.shipSpeed,
+                        left: this.state.currentPosition.left
+                    }
+                }, () => {
+                    if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
+                                                        &&
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true))
+                                                        ||
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate2.left +20
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
+                                                        &&
+                        (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 === true)
+                    )
+                        {
+                    this.gameOver();
+                    return this.props.currentUser
+                    }
+                    else if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
+                                                        &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
+                                                        ||
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
+                                                        &&
+                        (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true)
+                    )
+                        {
+                    this.gameOver();
+                    return this.props.currentUser
+                    }
+                
+                })
+            }
+        }, 100)
+    ) // end of push
+    }
+
+    moveUp = () => {
+        upwardAcceleration.push(setInterval(() => {
+            if (this.state.currentPosition.top < 0)  {
+                this.setState({
+                    currentPosition: {
+                        top: window.innerHeight,
+                        left: this.state.currentPosition.left
+                    }
+                })
+            }
+            else {
+                this.setState({
+                    currentPosition: {
+                        top: this.state.currentPosition.top - this.state.shipSpeed,
+                        left: this.state.currentPosition.left
+                    }
+                }, () => {
+                    if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top) 
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230) 
+                                                        &&
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance == true))
+                                                        ||
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                        && 
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
+                                                        &&
+                        (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 == true) )
+                    ) {
+                        this.gameOver();
+                        return this.props.currentUser
+                    }
+                    else if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
+                                                        &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
+                                                        ||
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
+                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                            && 
+                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
+                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
+                                                            &&
+                            (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true) )
+                    ) {
+                        this.gameOver();
+                        return this.props.currentUser
+                    }
+            
+                })
+            }
+        }, 100)
+      ) // end of push
+    }
+
+    moveLeft = () => {
+        leftwardAcceleration.push(setInterval(() => {
+            if (this.state.currentPosition.left < 1){
+                this.setState({
+                    currentPosition: {
+                        top: this.state.currentPosition.top,
+                        left: window.innerWidth
+                    }
+                })
+            }
+            else {
+                this.setState({
+                    currentPosition: {
+                        top: this.state.currentPosition.top,
+                        left: this.state.currentPosition.left - this.state.shipSpeed
+                    }
+                }, () => {
+                    if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
+                                                        &&
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true))
+                                                        ||
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate2.left +20
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
+                                                        &&
+                        (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 === true)                                                            
+                    )
+                        {
+                    this.gameOver();
+                    return this.props.currentUser
+                    }
+                    else if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
+                                                        &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
+                                                        ||
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
+                                                        &&
+                        (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true)
+                    )
+                        {
+                    this.gameOver();
+                    return this.props.currentUser
+                    }
+                
+                })
+            }
+        }, 100)
+    )// end of push
+    }
+
+    moveRight = () => {
+        rightwardAcceleration.push(setInterval(() => {
+            if (this.state.currentPosition.left > window.innerWidth){
+                this.setState({
+                    currentPosition: {
+                        top: this.state.currentPosition.top,
+                        left: 1
+                    }
+                })
+            }
+            else {
+                this.setState({
+                    currentPosition: {
+                        top: this.state.currentPosition.top,
+                        left: this.state.currentPosition.left + this.state.shipSpeed
+                    }
+                }, () => {
+                    if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
+                                                        &&
+                        (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true))
+                                                        ||
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate2.left +20
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
+                                                        &&
+                        (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 === true)
+                        )
+                    {
+                        this.gameOver();
+                        return this.props.currentUser
+                }
+                    else if (
+                        ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
+                                                        &&
+                        (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
+                                                        ||
+                        (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
+                        && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
+                                                        &&
+                        (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
+                        && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
+                                                        &&
+                        (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true)
+                    )
+                        {
+                    this.gameOver();
+                    return this.props.currentUser
+                    }
+                
+                })
+            }
+        }, 100)
+    ) //end of push
+    }
+
     obstacleReappend = () => {
         //obstacle 1
         if (this.state.obstacleCoordinate.top >= window.innerHeight){
@@ -246,274 +508,28 @@ class World extends Component {
             gameBackgroundMusic.play()
             this.obstacleReappend()
             this.decelerate(downwardAcceleration);
-            upwardAcceleration.push(setInterval(() => {
-                if (this.state.currentPosition.top < 0)  {
-                    this.setState({
-                        currentPosition: {
-                            top: window.innerHeight,
-                            left: this.state.currentPosition.left
-                        }
-                    })
-                }
-                else {
-                    this.setState({
-                        currentPosition: {
-                            top: this.state.currentPosition.top - this.state.shipSpeed,
-                            left: this.state.currentPosition.left
-                        }
-                    }, () => {
-                        if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top) 
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230) 
-                                                            &&
-                            (this.state.obstacleSize === 20 && this.state.obstacleAppearance == true))
-                                                            ||
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                            && 
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
-                                                            &&
-                            (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 == true) )
-                        ) {
-                            this.gameOver();
-                            return this.props.currentUser
-                        }
-                        else if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
-                                                            &&
-                            (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
-                                                            ||
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
-                                && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                                && 
-                                (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
-                                && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
-                                                                &&
-                                (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true) )
-                        ) {
-                            this.gameOver();
-                            return this.props.currentUser
-                        }
-                
-                    })
-                }
-            }, 100)
-          ) // end of push
+            this.moveUp()
            break;
 
         //Move Left (A)
         case 65:
             this.obstacleReappend()
             this.decelerate(rightwardAcceleration);
-            leftwardAcceleration.push(setInterval(() => {
-                if (this.state.currentPosition.left < 1){
-                    this.setState({
-                        currentPosition: {
-                            top: this.state.currentPosition.top,
-                            left: window.innerWidth
-                        }
-                    })
-                }
-                else {
-                    this.setState({
-                        currentPosition: {
-                            top: this.state.currentPosition.top,
-                            left: this.state.currentPosition.left - this.state.shipSpeed
-                        }
-                    }, () => {
-                        if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
-                                                            &&
-                            (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true))
-                                                            ||
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
-                                                            &&
-                            (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 === true)                                                            
-                        )
-                            {
-                        this.gameOver();
-                        return this.props.currentUser
-                        }
-                        else if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
-                                                            &&
-                            (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
-                                                            ||
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
-                                                            &&
-                            (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true)
-                        )
-                            {
-                        this.gameOver();
-                        return this.props.currentUser
-                        }
-                    
-                    })
-                }
-            }, 100)
-        )// end of push
+            this.moveLeft()
         break;
 
            //Move Right (D)
         case 68:
             this.obstacleReappend()
             this.decelerate(leftwardAcceleration);
-            rightwardAcceleration.push(setInterval(() => {
-                if (this.state.currentPosition.left > window.innerWidth){
-                    this.setState({
-                        currentPosition: {
-                            top: this.state.currentPosition.top,
-                            left: 1
-                        }
-                    })
-                }
-                else {
-                    this.setState({
-                        currentPosition: {
-                            top: this.state.currentPosition.top,
-                            left: this.state.currentPosition.left + this.state.shipSpeed
-                        }
-                    }, () => {
-                        if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
-                                                            &&
-                            (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true))
-                                                            ||
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
-                                                            &&
-                            (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 === true)
-                            )
-                        {
-                            this.gameOver();
-                            return this.props.currentUser
-                    }
-                        else if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
-                                                            &&
-                            (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
-                                                            ||
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
-                                                            &&
-                            (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true)
-                        )
-                            {
-                        this.gameOver();
-                        return this.props.currentUser
-                        }
-                    
-                    })
-                }
-            }, 100)
-        ) //end of push
+            this.moveRight()
         break;
 
         //Move Down (S)
         case 83:
             this.obstacleReappend()
             this.decelerate(upwardAcceleration);
-            downwardAcceleration.push(setInterval(() => {
-                if (this.state.currentPosition.top > window.innerHeight)  {
-                    this.setState({
-                        currentPosition: {
-                            top: 1,
-                            left: this.state.currentPosition.left
-                        }
-                    })
-                }
-                else{
-                    this.setState({
-                        currentPosition: {
-                            top: this.state.currentPosition.top + this.state.shipSpeed,
-                            left: this.state.currentPosition.left
-                        }
-                    }, () => {
-                        if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 230)
-                                                            &&
-                            (this.state.obstacleSize === 20 && this.state.obstacleAppearance === true))
-                                                            ||
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +220
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left +20
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 230)
-                                                            &&
-                            (this.state.obstacleSize2 === 20 && this.state.obstacleAppearance2 === true)
-                        )
-                            {
-                        this.gameOver();
-                        return this.props.currentUser
-                        }
-                        else if (
-                            ((this.state.currentPosition.top < this.state.obstacleCoordinate.top +100
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate.left + 125)
-                                                            &&
-                            (this.state.obstacleSize === 10 && this.state.obstacleAppearance == true))
-                                                            ||
-                            (this.state.currentPosition.top < this.state.obstacleCoordinate2.top +100
-                            && this.state.currentPosition.top > this.state.obstacleCoordinate2.top)
-                                                            &&
-                            (this.state.currentPosition.left > this.state.obstacleCoordinate2.left
-                            && this.state.currentPosition.left < this.state.obstacleCoordinate2.left + 125)
-                                                            &&
-                            (this.state.obstacleSize2 === 10 && this.state.obstacleAppearance2 == true)
-                        )
-                            {
-                        this.gameOver();
-                        return this.props.currentUser
-                        }
-                    
-                    })
-                }
-            }, 100)
-        ) // end of push
+            this.moveDown()
         break;
 
         //Fire Projectiles
