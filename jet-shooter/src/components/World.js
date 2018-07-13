@@ -354,6 +354,495 @@ class World extends Component {
     ) //end of push
     }
 
+    fireUp = () => {
+        if (this.state.currentDirection === 0){
+            var upwardProjectile = setInterval(() => {
+                this.setState({
+                    attackPosition: {
+                        left: this.state.attackPosition.left,
+                        top: this.state.attackPosition.top - this.state.attackTravelSpeed
+                    }
+                    }, () => {
+                        if (this.state.attackPosition.top < 0) {
+                            clearInterval(upwardProjectile)
+                            this.setState({
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                }
+                            })
+                        } //end of callback if statement
+                        //firing obstacle 1 at size 20
+                        else if (
+                            ((this.state.attackPosition.top < this.state.obstacleCoordinate.top + 220
+                              && this.state.attackPosition.top > this.state.obstacleCoordinate.top - 220)
+                            ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left
+                            && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
+                        ) //entire else if (obs-size == 20)
+                        {
+                            clearInterval(upwardProjectile)
+                            this.setState({
+                                obstacleSize: this.state.obstacleSize-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 200,
+                            })
+                        }
+                        //firing obstacle 2 at size 20
+                        else if (
+                            ((this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 220
+                              && this.state.attackPosition.top > this.state.obstacleCoordinate2.top - 220)
+                            ) && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left
+                            && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 340)
+                             && (this.state.obstacleSize2 == 20)
+                        ) //entire else if (obs-size2 == 20)
+                        {
+                            clearInterval(upwardProjectile)
+                            this.setState({
+                                obstacleSize2: this.state.obstacleSize2-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 200,
+                            })
+                        }
+                        // firing obstacle 1 at size 10
+                        else if (
+                            ((this.state.attackPosition.top < this.state.obstacleCoordinate.top + 110
+                            && this.state.attackPosition.top > this.state.obstacleCoordinate.top - 110)
+                            ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left -20
+                                && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 100) && (this.state.obstacleSize == 10)
+                            ) //entire else if (obs-size == 10)
+                        {
+                            clearInterval(upwardProjectile)
+                            this.setState({
+                                obstacleSize: this.state.obstacleSize-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 100,
+                            }, () => {
+                                this.reRenderObstacle()
+                            })
+                       }
+                       // firing obstacle 2 at size 10
+                       else if (
+                        ((this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 110
+                        && this.state.attackPosition.top > this.state.obstacleCoordinate2.top - 110)
+                        ) && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left -20
+                            && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 100)
+                             && (this.state.obstacleSize2 == 10)
+                        ) //entire else if (obs-size2 == 10)
+                    {
+                        clearInterval(upwardProjectile)
+                        this.setState({
+                            obstacleSize2: this.state.obstacleSize2-10,
+                            attack: null,
+                            attackDirection: 0,
+                            attackPosition: {
+                                left: 0,
+                                top: 0,
+                            },
+                            gameScore: this.state.gameScore + 100,
+                        }, () => {
+                            this.reRenderObstacle2()
+                        })
+                   }
+                    } // end of callback function
+                ) // end of sst in setInterval
+            }, 10) // end of setInt
+        this.setState({
+            attack: true,
+            attackDirection: 270,
+            attackPosition: {
+                left: this.state.currentPosition.left - 25,
+                top: this.state.currentPosition.top - 65
+            }
+        })
+            upwardProjectile
+        } // end of Ship-Up if statement
+    }
+
+    fireDown = () => {
+        if (this.state.currentDirection === 180){
+            var downwardProjectile = setInterval(() => {
+                this.setState({
+                    attackPosition: {
+                        left: this.state.attackPosition.left,
+                        top: this.state.attackPosition.top + this.state.attackTravelSpeed
+                    }
+                }, () => {
+                    if (this.state.attackPosition.top > window.innerHeight) {
+                        clearInterval(downwardProjectile)
+                            this.setState({
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                }
+                            })
+                    } //end of callback if statement
+                    //firing obstacle 1 at size 20
+                    else if (
+                        (this.state.attackPosition.top < this.state.obstacleCoordinate.top + 10 
+                        && this.state.attackPosition.top > this.state.obstacleCoordinate.top -10 )
+                        && (this.state.attackPosition.left > this.state.obstacleCoordinate.left
+                        && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 205) 
+                        && (this.state.obstacleSize == 20)
+                    ) //entire else if (obs-size == 20)
+                    {
+                        clearInterval(downwardProjectile)
+                        this.setState({
+                            obstacleSize: this.state.obstacleSize-10,
+                            attack: null,
+                            attackDirection: 0,
+                            attackPosition: {
+                                left: 0,
+                                top: 0,
+                            },
+                            gameScore: this.state.gameScore + 200,
+                        })
+                    }
+                    //firing obstacle 2 at size 20
+                    else if (
+                        (this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 10 
+                        && this.state.attackPosition.top > this.state.obstacleCoordinate2.top -10 )
+                        && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left
+                        && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 205) 
+                        && (this.state.obstacleSize2 == 20)
+                    ) //entire else if (obs-size2 == 20)
+                    {
+                        clearInterval(downwardProjectile)
+                        this.setState({
+                            obstacleSize2: this.state.obstacleSize2-10,
+                            attack: null,
+                            attackDirection: 0,
+                            attackPosition: {
+                                left: 0,
+                                top: 0,
+                            },
+                            gameScore: this.state.gameScore + 200,
+                        })
+                    }
+                    // firing obstacle 1 at size 10
+                    else if (
+                        (this.state.attackPosition.top < this.state.obstacleCoordinate.top + 5 
+                            && this.state.attackPosition.top > this.state.obstacleCoordinate.top -5 )
+                         && (this.state.attackPosition.left > this.state.obstacleCoordinate.left -20
+                            && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 100) && (this.state.obstacleSize == 10)
+                        ) //entire else if (obs-size == 10)
+                        {
+                            clearInterval(downwardProjectile)
+                                this.setState({
+                                    obstacleSize: this.state.obstacleSize-10,
+                                    attack: null,
+                                    attackDirection: 0,
+                                    attackPosition: {
+                                        left: 0,
+                                        top: 0,
+                                    },
+                                    gameScore: this.state.gameScore + 100,
+                                }, () => {
+                                    this.reRenderObstacle()
+                                })
+                        }
+                        // firing obstacle 2 at size 10
+                    else if (
+                        (this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 5 
+                            && this.state.attackPosition.top > this.state.obstacleCoordinate2.top -5 )
+                         && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left -20
+                            && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 100) 
+                            && (this.state.obstacleSize2 == 10)
+                        ) //entire else if (obs-size2 == 10)
+                        {
+                            clearInterval(downwardProjectile)
+                                this.setState({
+                                    obstacleSize2: this.state.obstacleSize2-10,
+                                    attack: null,
+                                    attackDirection: 0,
+                                    attackPosition: {
+                                        left: 0,
+                                        top: 0,
+                                    },
+                                    gameScore: this.state.gameScore + 100,
+                                }, () => {
+                                    this.reRenderObstacle2()
+                                })
+                        }
+                } // end of callback function
+            ) // end of sst in setInterval
+        }, 10) // end of setInt
+            this.setState({
+                attack: true,
+                attackDirection: 90,
+                attackPosition: {
+                    left: this.state.currentPosition.left - 25,
+                    top: this.state.currentPosition.top + 65
+                }
+            })
+                downwardProjectile
+            } // end of Fire Downward if statement
+    }
+
+    fireRight = () => {
+        if (this.state.currentDirection === 90){
+            var rightwardProjectile = setInterval(() => {
+                this.setState({
+                    attackPosition: {
+                        left: this.state.attackPosition.left + this.state.attackTravelSpeed,
+                        top: this.state.attackPosition.top
+                    }
+                }, () => {
+                    if (this.state.attackPosition.left > window.innerWidth) {
+                        clearInterval(rightwardProjectile)
+                            this.setState({
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                }
+                            })
+                        } //end of callback if statement
+                    //firing Obstacle 1 at size 20
+                    else if (
+                        (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 10 
+                        && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 10) 
+                        && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
+                        && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 215) 
+                        && (this.state.obstacleSize == 20)
+                        ) //entire else if (obs-size == 20)
+                        {
+                        clearInterval(rightwardProjectile)
+                            this.setState({
+                                obstacleSize: this.state.obstacleSize-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 200,
+                            })
+                        }
+                        //firing Obstacle 2 at size 20
+                        else if (
+                            (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 10 
+                            && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 10) 
+                            && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top
+                            && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 215) 
+                            && (this.state.obstacleSize2 == 20)
+                            ) //entire else if (obs-size == 20)
+                            {
+                            clearInterval(rightwardProjectile)
+                                this.setState({
+                                    obstacleSize2: this.state.obstacleSize2-10,
+                                    attack: null,
+                                    attackDirection: 0,
+                                    attackPosition: {
+                                        left: 0,
+                                        top: 0,
+                                    },
+                                    gameScore: this.state.gameScore + 200,
+                                })
+                            }
+                    //firing Obstacle 1 at size 10
+                    else if (
+                        (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 5 
+                        && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 5)  
+                        && (this.state.attackPosition.top > this.state.obstacleCoordinate.top -10
+                        && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 100) 
+                        && (this.state.obstacleSize == 10)
+                        ) //entire else if (obs-size == 10)
+                        {
+                            clearInterval(rightwardProjectile)
+                                this.setState({
+                                obstacleSize: this.state.obstacleSize-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 100,
+                            }, () => {
+                                this.reRenderObstacle()
+                            })
+                        }
+                    //firing Obstacle 2 at size 10
+                    else if (
+                        (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 5 
+                        && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 5)  
+                        && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top -10
+                        && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 100) 
+                        && (this.state.obstacleSize2 == 10)
+                        ) //entire else if (obs-size == 10)
+                        {
+                            clearInterval(rightwardProjectile)
+                                this.setState({
+                                obstacleSize2: this.state.obstacleSize2-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 100,
+                            }, () => {
+                                this.reRenderObstacle2()
+                            })
+                        }
+                } // end of callback function
+            ) // end of sst in setInterval
+        }, 10) // end of setInt
+                this.setState({
+                    attack: true,
+                    attackDirection: 360,
+                    attackPosition: {
+                        left: this.state.currentPosition.left + 30,
+                        top: this.state.currentPosition.top + 3
+                    }
+                })
+                    rightwardProjectile
+            } // end of Fire Right if statement
+    }
+
+    fireLeft = () => {
+        if (this.state.currentDirection === 270){
+            var leftwardProjectile = setInterval(() => {
+                this.setState({
+                    attackPosition: {
+                        left: this.state.attackPosition.left - this.state.attackTravelSpeed,
+                        top: this.state.attackPosition.top
+                    }
+                }, () => {
+                    if (this.state.attackPosition.left < 0) {
+                        clearInterval(leftwardProjectile)
+                            this.setState({
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                }
+                            })
+                        } //end of callback if statement
+                    // firing obstacle 1 at size 20
+                    else if (
+                        (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 210
+                        && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 210) 
+                        && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
+                        && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 215) 
+                        && (this.state.obstacleSize == 20)
+                        ) //entire else if (obs-size == 20)
+                        {
+                            clearInterval(leftwardProjectile)
+                            this.setState({
+                                obstacleSize: this.state.obstacleSize-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 200,
+                            })
+                        }
+                    //firing obstacle 2 at size 20
+                    else if (
+                        (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 210
+                        && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 210) 
+                        && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top
+                        && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 215) 
+                        && (this.state.obstacleSize2 == 20)
+                        ) //entire else if (obs-size2 == 20)
+                        {
+                            clearInterval(leftwardProjectile)
+                            this.setState({
+                                obstacleSize2: this.state.obstacleSize2-10,
+                                attack: null,
+                                attackDirection: 0,
+                                attackPosition: {
+                                    left: 0,
+                                    top: 0,
+                                },
+                                gameScore: this.state.gameScore + 200,
+                            })
+                        }
+                    //firing obstacle 1 at size 10    
+                    else if (
+                        (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 105
+                        && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 105)  
+                        && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
+                        && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 100) 
+                        && (this.state.obstacleSize == 10)
+                        ) //entire else if (obs-size == 10)
+                        {
+                        clearInterval(leftwardProjectile)
+                            this.setState({
+                            obstacleSize: this.state.obstacleSize-10,
+                            attack: null,
+                            attackDirection: 0,
+                            attackPosition: {
+                                left: null,
+                                top: null,
+                                },
+                            gameScore: this.state.gameScore + 100,
+                            }, () => {
+                                this.reRenderObstacle()
+                            })
+                        }
+                    //firing obstacle 1 at size 10                                   
+                    else if (
+                        (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 105
+                        && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 105)  
+                        && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top
+                        && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 100) 
+                        && (this.state.obstacleSize2 == 10)
+                        ) //entire else if (obs-size2 == 10)
+                        {
+                        clearInterval(leftwardProjectile)
+                            this.setState({
+                            obstacleSize2: this.state.obstacleSize2-10,
+                            attack: null,
+                            attackDirection: 0,
+                            attackPosition: {
+                                left: null,
+                                top: null,
+                                },
+                            gameScore: this.state.gameScore + 100,
+                            }, () => {
+                                this.reRenderObstacle2()
+                            })
+                        }
+                } // end of callback function
+            ) // end of sst in setInterval 
+        }, 10) // end of setInt
+                this.setState({
+                    attack: true,
+                    attackDirection: 180,
+                    attackPosition: {
+                        left: this.state.currentPosition.left - 90,
+                        top: this.state.currentPosition.top + 3
+                    }
+                })
+                    leftwardProjectile
+            } // end of Fire Left if statement
+    }
+
     obstacleReappend = () => {
         //obstacle 1
         if (this.state.obstacleCoordinate.top >= window.innerHeight){
@@ -538,489 +1027,16 @@ class World extends Component {
         shootingSoundEffect.play()
             if (this.state.attack !== true) {
                 // Fire Upward
-                if (this.state.currentDirection === 0){
-                    var upwardProjectile = setInterval(() => {
-                        this.setState({
-                            attackPosition: {
-                                left: this.state.attackPosition.left,
-                                top: this.state.attackPosition.top - this.state.attackTravelSpeed
-                            }
-                            }, () => {
-                                if (this.state.attackPosition.top < 0) {
-                                    clearInterval(upwardProjectile)
-                                    this.setState({
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        }
-                                    })
-                                } //end of callback if statement
-                                //firing obstacle 1 at size 20
-                                else if (
-                                    ((this.state.attackPosition.top < this.state.obstacleCoordinate.top + 220
-                                      && this.state.attackPosition.top > this.state.obstacleCoordinate.top - 220)
-                                    ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left
-                                    && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 340) && (this.state.obstacleSize == 20)
-                                ) //entire else if (obs-size == 20)
-                                {
-                                    clearInterval(upwardProjectile)
-                                    this.setState({
-                                        obstacleSize: this.state.obstacleSize-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 200,
-                                    })
-                                }
-                                //firing obstacle 2 at size 20
-                                else if (
-                                    ((this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 220
-                                      && this.state.attackPosition.top > this.state.obstacleCoordinate2.top - 220)
-                                    ) && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left
-                                    && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 340)
-                                     && (this.state.obstacleSize2 == 20)
-                                ) //entire else if (obs-size2 == 20)
-                                {
-                                    clearInterval(upwardProjectile)
-                                    this.setState({
-                                        obstacleSize2: this.state.obstacleSize2-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 200,
-                                    })
-                                }
-                                // firing obstacle 1 at size 10
-                                else if (
-                                    ((this.state.attackPosition.top < this.state.obstacleCoordinate.top + 110
-                                    && this.state.attackPosition.top > this.state.obstacleCoordinate.top - 110)
-                                    ) && (this.state.attackPosition.left > this.state.obstacleCoordinate.left -20
-                                        && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 100) && (this.state.obstacleSize == 10)
-                                    ) //entire else if (obs-size == 10)
-                                {
-                                    clearInterval(upwardProjectile)
-                                    this.setState({
-                                        obstacleSize: this.state.obstacleSize-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 100,
-                                    }, () => {
-                                        this.reRenderObstacle()
-                                    })
-                               }
-                               // firing obstacle 2 at size 10
-                               else if (
-                                ((this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 110
-                                && this.state.attackPosition.top > this.state.obstacleCoordinate2.top - 110)
-                                ) && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left -20
-                                    && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 100)
-                                     && (this.state.obstacleSize2 == 10)
-                                ) //entire else if (obs-size2 == 10)
-                            {
-                                clearInterval(upwardProjectile)
-                                this.setState({
-                                    obstacleSize2: this.state.obstacleSize2-10,
-                                    attack: null,
-                                    attackDirection: 0,
-                                    attackPosition: {
-                                        left: 0,
-                                        top: 0,
-                                    },
-                                    gameScore: this.state.gameScore + 100,
-                                }, () => {
-                                    this.reRenderObstacle2()
-                                })
-                           }
-                            } // end of callback function
-                        ) // end of sst in setInterval
-                    }, 10) // end of setInt
-                this.setState({
-                    attack: true,
-                    attackDirection: 270,
-                    attackPosition: {
-                        left: this.state.currentPosition.left - 25,
-                        top: this.state.currentPosition.top - 65
-                    }
-                })
-                    upwardProjectile
-                } // end of Ship-Up if statement
+                this.fireUp()
 
                 // Fire Downward
-                if (this.state.currentDirection === 180){
-                    var downwardProjectile = setInterval(() => {
-                        this.setState({
-                            attackPosition: {
-                                left: this.state.attackPosition.left,
-                                top: this.state.attackPosition.top + this.state.attackTravelSpeed
-                            }
-                        }, () => {
-                            if (this.state.attackPosition.top > window.innerHeight) {
-                                clearInterval(downwardProjectile)
-                                    this.setState({
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        }
-                                    })
-                            } //end of callback if statement
-                            //firing obstacle 1 at size 20
-                            else if (
-                                (this.state.attackPosition.top < this.state.obstacleCoordinate.top + 10 
-                                && this.state.attackPosition.top > this.state.obstacleCoordinate.top -10 )
-                                && (this.state.attackPosition.left > this.state.obstacleCoordinate.left
-                                && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 205) 
-                                && (this.state.obstacleSize == 20)
-                            ) //entire else if (obs-size == 20)
-                            {
-                                clearInterval(downwardProjectile)
-                                this.setState({
-                                    obstacleSize: this.state.obstacleSize-10,
-                                    attack: null,
-                                    attackDirection: 0,
-                                    attackPosition: {
-                                        left: 0,
-                                        top: 0,
-                                    },
-                                    gameScore: this.state.gameScore + 200,
-                                })
-                            }
-                            //firing obstacle 2 at size 20
-                            else if (
-                                (this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 10 
-                                && this.state.attackPosition.top > this.state.obstacleCoordinate2.top -10 )
-                                && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left
-                                && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 205) 
-                                && (this.state.obstacleSize2 == 20)
-                            ) //entire else if (obs-size2 == 20)
-                            {
-                                clearInterval(downwardProjectile)
-                                this.setState({
-                                    obstacleSize2: this.state.obstacleSize2-10,
-                                    attack: null,
-                                    attackDirection: 0,
-                                    attackPosition: {
-                                        left: 0,
-                                        top: 0,
-                                    },
-                                    gameScore: this.state.gameScore + 200,
-                                })
-                            }
-                            // firing obstacle 1 at size 10
-                            else if (
-                                (this.state.attackPosition.top < this.state.obstacleCoordinate.top + 5 
-                                    && this.state.attackPosition.top > this.state.obstacleCoordinate.top -5 )
-                                 && (this.state.attackPosition.left > this.state.obstacleCoordinate.left -20
-                                    && this.state.attackPosition.left < this.state.obstacleCoordinate.left + 100) && (this.state.obstacleSize == 10)
-                                ) //entire else if (obs-size == 10)
-                                {
-                                    clearInterval(downwardProjectile)
-                                        this.setState({
-                                            obstacleSize: this.state.obstacleSize-10,
-                                            attack: null,
-                                            attackDirection: 0,
-                                            attackPosition: {
-                                                left: 0,
-                                                top: 0,
-                                            },
-                                            gameScore: this.state.gameScore + 100,
-                                        }, () => {
-                                            this.reRenderObstacle()
-                                        })
-                                }
-                                // firing obstacle 2 at size 10
-                            else if (
-                                (this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 5 
-                                    && this.state.attackPosition.top > this.state.obstacleCoordinate2.top -5 )
-                                 && (this.state.attackPosition.left > this.state.obstacleCoordinate2.left -20
-                                    && this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 100) 
-                                    && (this.state.obstacleSize2 == 10)
-                                ) //entire else if (obs-size2 == 10)
-                                {
-                                    clearInterval(downwardProjectile)
-                                        this.setState({
-                                            obstacleSize2: this.state.obstacleSize2-10,
-                                            attack: null,
-                                            attackDirection: 0,
-                                            attackPosition: {
-                                                left: 0,
-                                                top: 0,
-                                            },
-                                            gameScore: this.state.gameScore + 100,
-                                        }, () => {
-                                            this.reRenderObstacle2()
-                                        })
-                                }
-                        } // end of callback function
-                    ) // end of sst in setInterval
-                }, 10) // end of setInt
-                    this.setState({
-                        attack: true,
-                        attackDirection: 90,
-                        attackPosition: {
-                            left: this.state.currentPosition.left - 25,
-                            top: this.state.currentPosition.top + 65
-                        }
-                    })
-                        downwardProjectile
-                    } // end of Fire Downward if statement
+                this.fireDown()
 
                 // Fire Right
-                if (this.state.currentDirection === 90){
-                    var rightwardProjectile = setInterval(() => {
-                        this.setState({
-                            attackPosition: {
-                                left: this.state.attackPosition.left + this.state.attackTravelSpeed,
-                                top: this.state.attackPosition.top
-                            }
-                        }, () => {
-                            if (this.state.attackPosition.left > window.innerWidth) {
-                                clearInterval(rightwardProjectile)
-                                    this.setState({
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        }
-                                    })
-                                } //end of callback if statement
-                            //firing Obstacle 1 at size 20
-                            else if (
-                                (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 10 
-                                && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 10) 
-                                && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
-                                && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 215) 
-                                && (this.state.obstacleSize == 20)
-                                ) //entire else if (obs-size == 20)
-                                {
-                                clearInterval(rightwardProjectile)
-                                    this.setState({
-                                        obstacleSize: this.state.obstacleSize-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 200,
-                                    })
-                                }
-                                //firing Obstacle 2 at size 20
-                                else if (
-                                    (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 10 
-                                    && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 10) 
-                                    && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top
-                                    && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 215) 
-                                    && (this.state.obstacleSize2 == 20)
-                                    ) //entire else if (obs-size == 20)
-                                    {
-                                    clearInterval(rightwardProjectile)
-                                        this.setState({
-                                            obstacleSize2: this.state.obstacleSize2-10,
-                                            attack: null,
-                                            attackDirection: 0,
-                                            attackPosition: {
-                                                left: 0,
-                                                top: 0,
-                                            },
-                                            gameScore: this.state.gameScore + 200,
-                                        })
-                                    }
-                            //firing Obstacle 1 at size 10
-                            else if (
-                                (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 5 
-                                && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 5)  
-                                && (this.state.attackPosition.top > this.state.obstacleCoordinate.top -10
-                                && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 100) 
-                                && (this.state.obstacleSize == 10)
-                                ) //entire else if (obs-size == 10)
-                                {
-                                    clearInterval(rightwardProjectile)
-                                        this.setState({
-                                        obstacleSize: this.state.obstacleSize-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 100,
-                                    }, () => {
-                                        this.reRenderObstacle()
-                                    })
-                                }
-                            //firing Obstacle 2 at size 10
-                            else if (
-                                (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 5 
-                                && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 5)  
-                                && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top -10
-                                && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 100) 
-                                && (this.state.obstacleSize2 == 10)
-                                ) //entire else if (obs-size == 10)
-                                {
-                                    clearInterval(rightwardProjectile)
-                                        this.setState({
-                                        obstacleSize2: this.state.obstacleSize2-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 100,
-                                    }, () => {
-                                        this.reRenderObstacle2()
-                                    })
-                                }
-                        } // end of callback function
-                    ) // end of sst in setInterval
-                }, 10) // end of setInt
-                        this.setState({
-                            attack: true,
-                            attackDirection: 360,
-                            attackPosition: {
-                                left: this.state.currentPosition.left + 30,
-                                top: this.state.currentPosition.top + 3
-                            }
-                        })
-                            rightwardProjectile
-                    } // end of Fire Right if statement
+                this.fireRight()
 
                 // Fire Left
-                if (this.state.currentDirection === 270){
-                    var leftwardProjectile = setInterval(() => {
-                        this.setState({
-                            attackPosition: {
-                                left: this.state.attackPosition.left - this.state.attackTravelSpeed,
-                                top: this.state.attackPosition.top
-                            }
-                        }, () => {
-                            if (this.state.attackPosition.left < 0) {
-                                clearInterval(leftwardProjectile)
-                                    this.setState({
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        }
-                                    })
-                                } //end of callback if statement
-                            // firing obstacle 1 at size 20
-                            else if (
-                                (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 210
-                                && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 210) 
-                                && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
-                                && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 215) 
-                                && (this.state.obstacleSize == 20)
-                                ) //entire else if (obs-size == 20)
-                                {
-                                    clearInterval(leftwardProjectile)
-                                    this.setState({
-                                        obstacleSize: this.state.obstacleSize-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 200,
-                                    })
-                                }
-                            //firing obstacle 2 at size 20
-                            else if (
-                                (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 210
-                                && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 210) 
-                                && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top
-                                && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 215) 
-                                && (this.state.obstacleSize2 == 20)
-                                ) //entire else if (obs-size2 == 20)
-                                {
-                                    clearInterval(leftwardProjectile)
-                                    this.setState({
-                                        obstacleSize2: this.state.obstacleSize2-10,
-                                        attack: null,
-                                        attackDirection: 0,
-                                        attackPosition: {
-                                            left: 0,
-                                            top: 0,
-                                        },
-                                        gameScore: this.state.gameScore + 200,
-                                    })
-                                }
-                            //firing obstacle 1 at size 10    
-                            else if (
-                                (this.state.attackPosition.left < this.state.obstacleCoordinate.left + 105
-                                && this.state.attackPosition.left > this.state.obstacleCoordinate.left - 105)  
-                                && (this.state.attackPosition.top > this.state.obstacleCoordinate.top
-                                && this.state.attackPosition.top < this.state.obstacleCoordinate.top + 100) 
-                                && (this.state.obstacleSize == 10)
-                                ) //entire else if (obs-size == 10)
-                                {
-                                clearInterval(leftwardProjectile)
-                                    this.setState({
-                                    obstacleSize: this.state.obstacleSize-10,
-                                    attack: null,
-                                    attackDirection: 0,
-                                    attackPosition: {
-                                        left: null,
-                                        top: null,
-                                        },
-                                    gameScore: this.state.gameScore + 100,
-                                    }, () => {
-                                        this.reRenderObstacle()
-                                    })
-                                }
-                            //firing obstacle 1 at size 10                                   
-                            else if (
-                                (this.state.attackPosition.left < this.state.obstacleCoordinate2.left + 105
-                                && this.state.attackPosition.left > this.state.obstacleCoordinate2.left - 105)  
-                                && (this.state.attackPosition.top > this.state.obstacleCoordinate2.top
-                                && this.state.attackPosition.top < this.state.obstacleCoordinate2.top + 100) 
-                                && (this.state.obstacleSize2 == 10)
-                                ) //entire else if (obs-size2 == 10)
-                                {
-                                clearInterval(leftwardProjectile)
-                                    this.setState({
-                                    obstacleSize2: this.state.obstacleSize2-10,
-                                    attack: null,
-                                    attackDirection: 0,
-                                    attackPosition: {
-                                        left: null,
-                                        top: null,
-                                        },
-                                    gameScore: this.state.gameScore + 100,
-                                    }, () => {
-                                        this.reRenderObstacle2()
-                                    })
-                                }
-                        } // end of callback function
-                    ) // end of sst in setInterval 
-                }, 10) // end of setInt
-                        this.setState({
-                            attack: true,
-                            attackDirection: 180,
-                            attackPosition: {
-                                left: this.state.currentPosition.left - 90,
-                                top: this.state.currentPosition.top + 3
-                            }
-                        })
-                            leftwardProjectile
-                    } // end of Fire Left if statement
+                this.fireLeft()
         } else {
             console.log("hitting this")
         }
