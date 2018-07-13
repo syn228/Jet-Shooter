@@ -121,7 +121,7 @@ class App extends Component {
 
     
     return (
-        <div style={{position:"absolute", backgroundImage: 'url(https://www.macleans.ca/wp-content/uploads/2014/07/stars-carousel.jpg)', height: "100%", width: "100%"}}>
+        <div style={{position:"absolute", backgroundImage: 'url(https://media3.giphy.com/media/UYBDCJjwOd9Re/giphy-preview.gif)', height: "100%", width: "100%"}}>
           {this.state.loggedIn == false ? <Login highScoreToggle={this.state.highScoreToggle} scoreFilter={this.state.scoreFilter} handleClick={this.handleClick} userNameValue={this.state.userNameValue} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/> : <World currentUser={this.state.currentUser}/>}
         </div>
     );
