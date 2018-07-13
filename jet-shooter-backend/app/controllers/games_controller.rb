@@ -4,16 +4,12 @@ class GamesController < ApplicationController
         render json: Game.all
     end
 
-    def new
-        @game = Game.new
-    end
-
     def create
         @game = Game.new
-    
+
         @game.score = params[:score]
         @game.user_id = params[:user_id]
-    
+
         if (@game.save)
           render json: {
             score: @game.score,

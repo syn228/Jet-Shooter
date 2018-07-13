@@ -4,16 +4,12 @@ class UsersController < ApplicationController
         render json: User.all
     end
 
-    def new
-        @user = User.new
-    end
-
     def create
         @user = User.new
-    
+
         @user.username = params[:username]
         @user.password = params[:password]
-    
+
         if (@user.save)
           render json: {
             username: @user.username,
@@ -26,11 +22,6 @@ class UsersController < ApplicationController
           }, status: :unprocessable_entity
         end
       end
-
-    def edit
-
-    end
-
 
 
 end
